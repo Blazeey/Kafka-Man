@@ -1,0 +1,18 @@
+<div class="create-cluster-wrapper">
+    <div class="heading">
+        <p>Cluster Details</p>
+        <button mat-raised-button (click)="addCluster()" class="create-cluster" [disabled]="!addClusterForm.valid"> Add Cluster</button>
+    </div>
+    <form [formGroup]="addClusterForm" class="cluster-form">
+        <div class="form-input">
+            <mat-form-field [floatLabel]="'always'">
+                <input matInput type="text" placeholder="Cluster name" formControlName="clusterName" autocomplete="off">
+            </mat-form-field>
+        </div>
+        <div class="form-input">
+            <mat-form-field [floatLabel]="'always'">
+                <input matInput type="text" placeholder="Broker list" formControlName="brokerList" autocomplete="off">
+            </mat-form-field>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,1 @@
+RUNNING_CONSUMERS = {}

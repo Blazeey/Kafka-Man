@@ -1,0 +1,183 @@
+@import "~src/styles";
+
+.mat-expansion-panel {
+    background-color: $light-blue;
+}
+
+.mat-expansion-panel-header-title {
+    width: 20%;
+    display: flex !important;
+    flex-direction: column;
+    flex-grow: unset !important;
+    justify-content: center;
+    font-family: $font;
+    font-weight: 600;
+}
+
+.mat-expansion-panel-header {
+    height: auto !important;
+}
+
+.mat-content {
+    display: unset !important;
+}
+
+.topics-container {
+    display: flex;
+    flex-direction: column;
+    font-size: $font-size-normal;
+    font-family: $font;
+
+    .topic-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .topics {
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .add-topic {
+            border-radius: 4px;
+            line-height: 1.5;
+            background-color: #0099cc;
+            color: #fff;
+            font-family: $font;
+            font-size: 15px;
+            padding: 10px;
+            width: fit-content;
+            margin-bottom: 10px;
+        }
+    }
+
+    .topics-accordion {
+        font-family: $font;
+        .topics-panel {
+
+            margin: 10px 0px;
+
+            .content {
+                display: flex;
+            }
+
+            .key {
+                font-size: 11px;
+                font-family: $font;
+                white-space: pre;
+            }
+
+            .value {
+                font-weight: 600;
+                color: black;
+                font-family: $font;
+            }
+
+            .topic-header-descriptions {
+                display: flex;
+                flex-direction: row;
+                
+                .detail {
+                    padding: 20px 30px;
+                    display: flex;
+                    text-align: center;
+                    flex-direction: column;
+                }
+            }
+
+            .topics-description-wrapper {
+
+                .mat-list-item-content {
+                    height: auto !important;
+                }
+                
+                .mat-list-base .mat-list-item {
+                    height: 25px !important;
+                }
+
+                .partition-heading {
+                    font-family: $font;
+                    font-weight: 600;
+                }
+
+                .partition-list {
+                    overflow: auto;
+                    max-height: 400px;                    
+                }
+
+                .detail {
+                    display: flex;
+                    text-align: center;
+                    padding: 0px 25px;
+                    flex-basis: 10%;
+                }
+
+                .topic-details {
+                    font-family: $font;
+
+                    .key {
+                        font-weight: 600;
+                        font-size: 13px;
+                    }
+
+                    .left-details {
+                        width: 50%;
+                        float: left;
+                    }
+
+                    .right-details {
+                        width: 50%;
+                        float: right;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.fab-container {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  
+    button {
+        background-color: #0099cc;
+    }
+
+    > div {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        margin-bottom: 5px;
+    
+        button {
+            margin-bottom: 17px;
+        }
+    }
+
+    .fab-secondary {
+        margin-bottom: 17px;
+        width: 130px;
+        background-color: #0099cc;
+        font-family: Work Sans;
+        color: white;
+        font-size: 13px;
+        text-overflow: ellipsis;
+        overflow: auto;
+        white-space: nowrap;
+        border-radius: 5px;
+        font-weight: 500;
+        box-shadow: 
+            0 3px 5px -1px rgba(0,0,0,.2), 
+            0 6px 10px 0 rgba(0,0,0,.14), 
+            0 1px 18px 0 rgba(0,0,0,.12);
+    }
+}
+  
+.fab-toggler {
+    float: right;
+    z-index: 100;
+}

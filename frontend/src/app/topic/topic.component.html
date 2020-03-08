@@ -1,0 +1,105 @@
+<div class="topics-container">
+    <div class="topic-header">
+        <div class="topics">Topics - {{ clusterName }}</div>
+        <button mat-raised-button (click)="addTopic()" class="add-topic"> Create topic </button>
+    </div>
+    <mat-progress-bar *ngIf="isTopicsLoading" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
+    <mat-accordion class="topics-accordion" multi="true" *ngIf="clusterName">
+        <mat-expansion-panel *ngFor="let topic of topicsList; let i = index" class="topics-panel" (opened)="getTopicConfig(topic.name, i)">
+            <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                <span class="mat-content">
+                    <mat-progress-bar *ngIf="!topicsProgressBar[i]" class="progress-bar" mode="determinate" value="100"></mat-progress-bar>
+                    <mat-progress-bar *ngIf="topicsProgressBar[i]" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
+                    <div class="content">
+                        <mat-panel-title class="topic-title">
+                            {{ topic.name }}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <div class="topic-header-descriptions">
+                                <div class="detail">
+                                    <span class="key">Partitions</span>
+                                    <span class="value">{{topic.partitions.length | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Total messages</span>
+                                    <span class="value">{{topic.count | number}} </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Avg. messages/partition</span> 
+                                    <span class="value">{{topic.average | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Avg. ISR/partition</span>
+                                    <span class="value">{{topic.avg_isr | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Maximum offset</span>
+                                    <span class="value">{{topic.max | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Minimum offset</span>
+                                    <span class="value">{{topic.min | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">95th Percentile</span>
+                                    <span class="value">{{topic.percentile | number}}</span>
+                                </div>
+                            </div>
+                        </mat-panel-description>
+                    </div>
+                </span>
+            </mat-expansion-panel-header>
+            <div class="topics-description-wrapper">
+                <div class="partition-details">
+                    <span class="partition-heading">Partitions</span>
+                    <mat-list class="partition-list">
+                        <mat-list-item matLine *ngFor="let partition of topic.partitions" class="partiton">
+                            <div class="detail">
+                                <span class="key">Partition Id : </span>
+                                <span class="value">{{partition.partition_id}}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="key">Offset : </span>
+                                <span class="value">{{topic.offsets[partition.partition_id]}}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="key">Leader : </span>
+                                <span class="value">{{partition.leader}}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="key">Replicas : </span>
+                                <span class="value">{{partition.replicas}}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="key">ISR : </span>
+                                <span class="value">{{partition.isr}}</span>
+                            </div>
+                        </mat-list-item>                            
+                    </mat-list>
+                </div>
+                <div class="topic-details" *ngIf="topic['config']">
+                    <div class="details-wrapper">
+                        <div class="left-details">
+                            <div *ngFor="let detail of topicDetails(0)">
+                                <p><span class="key">{{detail.value + ' : '}}</span> {{topic.config[detail.key]}} </p>
+                            </div>
+                        </div>
+                        <div class="right-details">
+                            <div *ngFor="let detail of topicDetails(1)">
+                                <p><span class="key">{{detail.value + ' : '}}</span> {{topic.config[detail.key]}} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div class="fab-container">
+        <button mat-fab (click)="toggleFab()"><mat-icon [@fabToggler]="{value: fabTogglerState}">repeat</mat-icon></button>
+        <div [@speedDialStagger]="fabButtons.length">
+            <button mat-button *ngFor="let button of fabButtons" class="fab-secondary" (click)="changeCluster(button)">
+            {{button}}
+            </button>
+        </div>
+    </div>
+</div>

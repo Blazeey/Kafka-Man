@@ -1,0 +1,41 @@
+<div class="create-topic-wrapper">
+    <div class="heading">
+        <p>Topic Details</p>
+        <button mat-raised-button class="create-topic" type="submit" [disabled]="!createTopicForm.valid" (click)="createTopic()"> Create </button>
+    </div>
+    <div class="topic-form">
+        <form [formGroup]="createTopicForm">
+            <div class="form-wrapper">
+                <div class="basic-details">
+                    <div class="topic-name">
+                        <mat-form-field [floatLabel]="'always'">
+                            <input matInput type="text" placeholder="Topic name" formControlName="topicName" autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                    <div class="topic-partition">
+                        <mat-form-field [floatLabel]="'always'">
+                            <input matInput type="number" placeholder="Partitions" formControlName="partitions" autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                    <div class="topic-replication">
+                        <mat-form-field [floatLabel]="'always'">
+                            <input matInput type="number" placeholder="Replication" formControlName="replication" autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="other-details">
+                    <div class="topic-input" *ngFor="let config of topicConfigs">
+                        <div class="form-input">
+                            <mat-form-field [floatLabel]="'always'">
+                                <input matInput type="{{ config.type }}" placeholder="{{config.name}}" formControlName="{{config.name}}" autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                        <div class="help" matTooltip="{{ getToolTip(config) }}" [matTooltipPosition]="tooltipPosition" matTooltipClass="mat-tooltip">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

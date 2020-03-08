@@ -1,0 +1,23 @@
+<mat-accordion class="accordion">
+    <mat-expansion-panel *ngFor="let group of groups | keyvalue" class="panel">
+      <mat-expansion-panel-header>
+          <mat-panel-title class="title">
+              {{ group.key }}
+          </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="group-description-wrapper">
+        <app-chart [groupName]="group.key" [group]="group.value" [cluster]="clusterName"></app-chart>
+        <div *ngFor="let topic of group.value | keyvalue" class="topic">
+            <p class="topic-name"> <b>Topic : </b> {{ topic.key }} </p>
+            <div class="partition-wrapper">
+                <div *ngFor="let partition of topic.value | keyvalue" class="partition">
+                    <p class="partition-name"> <b>Partition : </b> {{ partition.key }} </p>
+                    <p class="partition-group-offset"> <b>Group Offset : </b> {{ partition.value.offset - 1}} </p>
+                    <p class="partition-topic-offset"> <b>Log End Offset : </b> {{ partition.value.topic_offset }} </p>
+                    <p class="partition-topic-offset"> <b>Consumer Lag : </b> {{ partition.value.topic_offset - partition.value.offset + 1}} </p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>

@@ -1,0 +1,6 @@
+<div class="messages-wrapper">
+    <app-consumer-messages-list class="messages-list" [messages]="messageList" *ngIf="messageList.length > 0" (notifyCurrentMessage)="setChangedMessage($event)">
+    </app-consumer-messages-list>
+    <app-consumer-message-item class="messages-item" [message]="currentMessage" *ngIf="currentMessage">
+    </app-consumer-message-item>
+</div>

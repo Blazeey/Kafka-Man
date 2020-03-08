@@ -1,0 +1,157 @@
+<div class="producer-class-wrapper">
+    <div class="producer">Producer</div>
+    <div class="request">
+        <form [formGroup]="producerForm" (ngSubmit)="produce()">
+
+            <div class="cluster-details-wrapper">
+                <mat-form-field  class="clusters" [floatLabel]="'always'">
+                    <mat-label>Cluster</mat-label>
+                    <mat-select formControlName="clusterName">
+                        <mat-option *ngFor="let cluster of clusters" [value]="cluster" class="options"> {{cluster}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="topics" [floatLabel]="'always'">
+                    <input matInput placeholder="Topic" formControlName="topic" [matAutocomplete]="auto">
+                </mat-form-field>
+                <mat-autocomplete class="topics-auto-complete" #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredTopics | async" [value]="option">
+                      {{ option }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-form-field class="message-type" [floatLabel]="'always'" *ngIf="tabGroup.selectedIndex != 2">
+                    <mat-label>Message Type</mat-label>
+                    <mat-select formControlName="type" (selectionChange)="changeType($event)">
+                        <mat-option *ngFor="let type of messageTypes" [value]="type.name" > {{type.name}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="message-type" [floatLabel]="'always'" *ngIf="tabGroup.selectedIndex == 2">
+                    <mat-label>Key Type</mat-label>
+                    <mat-select formControlName="keyType">
+                        <mat-option *ngFor="let type of messageTypes" [value]="type.name" > {{type.name}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <section class="produce-field">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!producerForm.valid" class="produce" id="produce">Produce</button>
+                </section>
+            </div>
+
+            <div class="tabs-wrapper">
+                <mat-tab-group #tabGroup class="tabs" [dynamicHeight]=true animationDuration="0ms"> 
+                    <mat-tab label="Headers">
+                        <ng-template matTabContent>
+                            <div class="headers-wrapper">
+                                <table mat-table [dataSource]="headerParams" class="mat-elevation-z8">
+                                    <ng-container matColumnDef="select">
+                                        <th mat-header-cell *matHeaderCellDef class="checkbox-table">
+                                          <mat-checkbox (change)="$event ? masterToggle() : null"
+                                                        [checked]="selection.hasValue() && isAllSelected()"
+                                                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                          </mat-checkbox>
+                                        </th>
+                                        <td mat-cell *matCellDef="let row" class="checkbox-table">
+                                          <mat-checkbox (click)="$event.stopPropagation()"
+                                                        (change)="$event ? selection.toggle(row) : null"
+                                                        [checked]="selection.isSelected(row)">
+                                          </mat-checkbox>
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="key">
+                                        <th mat-header-cell *matHeaderCellDef> Key </th>
+                                        <td mat-cell *matCellDef="let row; let i = index"> 
+                                            <input matInput autocomplete="off" (ngModelChange)="headerChange(i)" [(ngModel)]="row.key" [ngModelOptions]="{standalone: true}">
+                                        </td>
+                                    </ng-container>
+                                    
+                                    <ng-container matColumnDef="value">
+                                        <th mat-header-cell *matHeaderCellDef> Value </th>
+                                        <td mat-cell *matCellDef="let row; let i = index">
+                                            <input matInput autocomplete="off" (ngModelChange)="headerChange(i)" [(ngModel)]="row.value" [ngModelOptions]="{standalone: true}">
+                                        </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="delete">
+                                        <th mat-header-cell *matHeaderCellDef></th>
+                                        <td mat-cell *matCellDef="let row; let i = index" class="delete-header">
+                                            <a (click)="deleteHeader(row)"><i class="fas fa-times"></i></a>
+                                        </td>
+                                    </ng-container>
+
+                                      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header"></tr>
+                                      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-data"></tr>
+                                    </table>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Message">
+                        <ng-template matTabContent>
+                            <div class="message-key-wrapper">
+                                <div class="message-key-formatter">
+                                    <mat-button-toggle-group name="formatting" aria-label="Message formatting" appearance="legacy" [disabled]="form.type.value == 'text' || form.type.value == 'yaml'">
+                                        <mat-button-toggle value="raw" class="toggle-button" [checked]=true (click)="rawMessage('message', true)">Raw</mat-button-toggle>
+                                        <mat-button-toggle value="pretty" class="toggle-button" (click)="prettyPrint('message')">Pretty</mat-button-toggle>
+                                      </mat-button-toggle-group>
+                                </div>
+                                <ngx-codemirror [options]="codeMirrorOptions('message')" [formControl]="form.message" class="code-mirror"></ngx-codemirror>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Key">
+                        <ng-template matTabContent>
+                            <div class="message-key-wrapper">
+                                <div class="message-key-formatter">
+                                    <mat-button-toggle-group name="formatting" aria-label="Key formatting" appearance="legacy" [disabled]="form.keyType.value == 'text' || form.keyType.value == 'yaml'">
+                                        <mat-button-toggle value="raw" class="toggle-button" [checked]=true (click)="rawMessage('key', true)">Raw</mat-button-toggle>
+                                        <mat-button-toggle value="pretty" class="toggle-button" (click)="prettyPrint('key')">Pretty</mat-button-toggle>
+                                      </mat-button-toggle-group>
+                                </div>
+                                <ngx-codemirror [options]="codeMirrorOptions('key')" [formControl]="form.key" class="code-mirror"></ngx-codemirror>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Params">
+                        <ng-template matTabContent>
+                            <div class="params-wrapper">
+                                <div class="partition-wrapper">
+                                    <mat-form-field class="partition-select" [floatLabel]="'always'">
+                                        <mat-label>Partitioning</mat-label>
+                                        <mat-select formControlName="partitioning">
+                                            <mat-option *ngFor="let partition of partitionTypes" [value]="partition.value"> {{ partition.name }} </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field class="partition-value" [floatLabel]="'always'">
+                                        <mat-label>Partition value</mat-label>
+                                        <input matInput [type]="form.partitioning.value == 'partition'? 'number': 'text'" formControlName="partitioningValue">
+                                    </mat-form-field>
+                                </div>
+                                <div class="count-wrapper">
+                                    <div class="count-label"> Count </div>
+                                    <mat-form-field class="producer-count-value">
+                                        <!-- <mat-label>Loop</mat-label> -->
+                                        <input type="number" min="1" max="10000" matInput formControlName="loopValue">
+                                    </mat-form-field>
+                                </div>
+                                <div class="compression-wrapper">
+                                    <div class="compression-label"> Compression </div>
+                                    <mat-form-field class="compression-value">
+                                        <mat-select formControlName="compression">
+                                            <mat-option *ngFor="let compression of compressionCodecs" [value]="compression.value"> {{ compression.name }} </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                    <!-- <mat-tab label="Variables">
+                        <ng-template matTabContent>
+                            <div class="variables-wrapper">
+                                
+                            </div>
+                        </ng-template>
+                    </mat-tab> -->
+                </mat-tab-group>
+            </div>
+        </form>
+    </div>
+</div>

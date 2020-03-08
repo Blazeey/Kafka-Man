@@ -1,0 +1,92 @@
+<div class="cluster-container">
+    <div class="clusters-header">
+        <div class="cluster">Clusters</div>
+        <button mat-raised-button (click)="addCluster()" class="add-cluster"> Add Cluster </button>
+    </div>
+    <mat-accordion class="cluster-accordion" multi="true">
+        <mat-expansion-panel *ngFor="let cluster of clusterList; let i = index" class="clusters-panel">
+            <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                <span class="mat-content">
+                    <mat-progress-bar *ngIf="!clustersProgressBar[i]" class="progress-bar" mode="determinate" value="100"></mat-progress-bar>
+                    <mat-progress-bar *ngIf="clustersProgressBar[i]" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
+                    <div class="content">
+                        <mat-panel-title class="cluster-title">
+                            {{ cluster.cluster_name }}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <div class="cluster-header-descriptions">
+                                <div class="controller">
+                                    <span class="key">Controller broker</span>
+                                    <span class="value">{{cluster.controller_broker.host + ':' + cluster.controller_broker.port}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">No. of brokers</span>
+                                    <span class="value">{{cluster.brokers.length | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Total partitions</span>
+                                    <span class="value">{{cluster.count | number}} </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Avg. partitions/broker</span> 
+                                    <span class="value">{{cluster.average | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Max partitions/broker</span>
+                                    <span class="value">{{cluster.max | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Min partitions/broker</span>
+                                    <span class="value">{{cluster.min | number}}</span>
+                                </div>
+                            </div>
+                        </mat-panel-description>
+                    </div>
+                </span>
+            </mat-expansion-panel-header>
+            <div class="clusters-description-wrapper">
+                <div class="broker-details">
+                    <span class="broker-heading">Brokers</span>
+                    <mat-list class="broker-list">
+                        <mat-list-item matLine *ngFor="let broker of cluster.brokers" class="partiton">
+                            <div class="detail">
+                                <span class="key">Broker Id : </span>
+                                <span class="value">{{broker.node_id}}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="key">Host : </span>
+                                <span class="value">{{broker.host}}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="key">Port : </span>
+                                <span class="value">{{broker.port}}</span>
+                            </div>
+                            <div class="detail">
+                                <span class="key">Partitions : </span>
+                                <span class="value">{{cluster.partitions_per_broker[broker.node_id]}}</span>
+                            </div>
+                            <!-- <div class="detail">
+                                <span class="key">ISR : </span>
+                                <span class="value">{{partition.isr}}</span>
+                            </div> -->
+                        </mat-list-item>                            
+                    </mat-list>
+                </div>
+                <!-- <div class="topic-details" *ngIf="topic['config']">
+                    <div class="details-wrapper">
+                        <div class="left-details">
+                            <div *ngFor="let detail of topicDetails(0)">
+                                <p><span class="key">{{detail.value + ' : '}}</span> {{topic.config[detail.key]}} </p>
+                            </div>
+                        </div>
+                        <div class="right-details">
+                            <div *ngFor="let detail of topicDetails(1)">
+                                <p><span class="key">{{detail.value + ' : '}}</span> {{topic.config[detail.key]}} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

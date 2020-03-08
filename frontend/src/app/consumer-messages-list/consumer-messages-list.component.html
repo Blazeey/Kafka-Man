@@ -1,0 +1,25 @@
+<div class="message-list-wrapper">
+    <mat-list class="messages-list">
+        <mat-list-item *ngFor="let message of messages; let i = index;" [ngClass]="{'message-item': true, 'highlight': currentMessage == message.count}" (click)="changeCurrentElement(message)">
+            <div class="message-card">
+                <div matLine class="message-details-wrapper">
+                    <div class="partition">
+                        <span class="key">Partition</span>
+                        <span class="value">{{ message.partition }} </span>
+                    </div>
+                    <div class="offset">
+                        <span class="key">Offset</span>
+                        <span class="value">{{ message.offset }} </span>
+                    </div>
+                    <div class="timestamp">
+                        <span class="key">Creation timestamp</span>
+                        <span class="value">{{ message.creation_timestamp }} </span>
+                    </div>
+                </div>
+                <div matLine class="message-value">
+                    {{ message.value }}
+                </div>
+            </div>
+        </mat-list-item>
+    </mat-list>
+</div>

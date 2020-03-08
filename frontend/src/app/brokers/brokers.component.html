@@ -1,0 +1,14 @@
+<mat-accordion class="accordion">
+    <mat-expansion-panel *ngFor="let broker of brokers | keyvalue" class="panel">
+      <mat-expansion-panel-header>
+          <mat-panel-title class="title">
+              {{ broker.key }}
+          </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="broker-description-wrapper">
+        <div *ngFor="let config of broker.value.configs">
+            <p><b> {{ config.name }} : </b> {{ config.value }} </p>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>

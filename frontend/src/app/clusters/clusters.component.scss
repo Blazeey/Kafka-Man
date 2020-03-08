@@ -1,0 +1,144 @@
+@import "~src/styles";
+
+.mat-expansion-panel {
+    background-color: $light-blue;
+}
+
+.mat-expansion-panel-header-title {
+    width: 20%;
+    display: flex !important;
+    flex-direction: column;
+    flex-grow: unset !important;
+    justify-content: center;
+    font-family: $font;
+    font-weight: 600;
+}
+
+.mat-expansion-panel-header {
+    height: auto !important;
+}
+
+.mat-content {
+    display: unset !important;
+}
+
+.cluster-container {
+    display: flex;
+    flex-direction: column;
+    font-size: $font-size-normal;
+    font-family: $font;
+
+    .clusters-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .cluster {
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .add-cluster {
+            border-radius: 4px;
+            line-height: 1.5;
+            background-color: #0099cc;
+            color: #fff;
+            font-family: $font;
+            font-size: 15px;
+            padding: 10px;
+            width: fit-content;
+            margin-bottom: 10px;
+        }
+    }
+
+    .cluster-accordion {
+        font-family: $font;
+        .clusters-panel {
+
+            margin: 10px 0px;
+
+            .content {
+                display: flex;
+            }
+
+            .key {
+                font-size: 11px;
+                font-family: $font;
+                white-space: pre;
+            }
+
+            .value {
+                font-weight: 600;
+                color: black;
+                font-family: $font;
+            }
+
+            .cluster-header-descriptions {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+
+                .controller {
+                  flex-basis: 25%;
+                  padding: 20px 0px;
+                  display: flex;
+                  text-align: center;
+                  flex-direction: column;
+                }
+                
+                .detail {
+                    padding: 20px 30px;
+                    display: flex;
+                    text-align: center;
+                    flex-direction: column;
+                }
+            }
+
+            .clusters-description-wrapper {
+
+                .mat-list-item-content {
+                  height: auto !important;
+                }
+              
+                .mat-list-base .mat-list-item {
+                    height: 25px !important;
+                  }
+
+                .broker-heading {
+                    font-family: $font;
+                    font-weight: 600;
+                }
+
+                .broker-list {
+                    overflow: auto;
+                    max-height: 400px;                    
+                }
+
+                .detail {
+                    display: flex;
+                    text-align: center;
+                    padding: 0px 25px;
+                    flex-basis: 10%;
+                }
+
+                .topic-details {
+                    font-family: $font;
+
+                    .key {
+                        font-weight: 600;
+                        font-size: 13px;
+                    }
+
+                    .left-details {
+                        width: 50%;
+                        float: left;
+                    }
+
+                    .right-details {
+                        width: 50%;
+                        float: right;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+@import "~src/styles";
+
+.cm-s-solarized.CodeMirror {
+    height: auto;
+    font-size: 14px;
+    font-family: $font;
+}
+
+.CodeMirror-scroll { 
+    max-height: 700px;
+    min-height: 200px;
+}
+
+.CodeMirror-cursors {
+    visibility: hidden !important;
+}
+
+.message-wrapper {
+    padding: 10px;
+
+    .toolbar {
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        mat-button-toggle {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border: 0px;
+            background: unset;
+
+            .mat-button-toggle-label-content {
+                line-height: unset;
+                padding: unset;
+            }
+        }
+
+        .far, .fas {
+            color: #0099cc;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .no-toggle {
+            background-color: unset !important;
+        }
+
+        .toggle {
+            .far, .fas {
+                color: #fff;
+            }
+        }
+
+        .code-mirror {
+            max-height: 700px;
+        }
+    }
+}

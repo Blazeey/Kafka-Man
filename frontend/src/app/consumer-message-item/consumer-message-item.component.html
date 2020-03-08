@@ -1,0 +1,8 @@
+<div class="message-wrapper">
+    <div class="toolbar">
+        <mat-button-toggle matTooltip="Copy" [matTooltipPosition]="tooltipPosition" (change)="copyToClipboard()" class="no-toggle"><i class="far fa-copy" aria-hidden="true"></i></mat-button-toggle>
+        <mat-button-toggle matTooltip="Beautify" [matTooltipPosition]="tooltipPosition" (change)="beautify()" [checked]="prettyPrintToggle" *ngIf="!prettyPrintToggle"><i class="fas fa-code" aria-hidden="true"></i></mat-button-toggle>
+        <mat-button-toggle matTooltip="Beautify" [matTooltipPosition]="tooltipPosition" (change)="beautify()" [checked]="prettyPrintToggle" *ngIf="prettyPrintToggle" class="toggle"><i class="fas fa-code" aria-hidden="true"></i></mat-button-toggle>
+    </div>
+    <ngx-codemirror [options]="codeMirrorOptions" [(ngModel)]="message.value" class="code-mirror"></ngx-codemirror>
+</div>

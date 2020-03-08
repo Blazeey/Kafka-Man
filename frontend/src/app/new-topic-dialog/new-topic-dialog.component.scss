@@ -1,0 +1,120 @@
+@import "~src/styles";
+
+mat-button-toggle-checked {	
+    background-color: #cbf1ff !important;	
+    color: black !important;	
+}
+
+.mat-select-panel .mat-option {
+    font-size: small !important;
+}
+
+.matTooltipClass {
+    font-family: $font;
+    font-size: 13px;
+    white-space: pre;
+    background-color: $dark-blue;
+    max-width: 500px !important;
+}
+
+.create-topic-wrapper {
+    .heading {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .create-topic {
+        border-radius: 4px;
+        line-height: 1.5;
+        background-color: #0099cc;
+        color: #fff;
+        font-family: $font;
+        font-size: 15px;
+        padding: 10px;
+        width: 150px;
+    }
+
+    .topic-form {
+        input {
+            border-radius: 4px;
+            border: solid 1px #c8c8c8;
+            background-color: #ffffff;
+            line-height: 1.5;
+            padding: 5px 8px;
+            margin: 0 1px;
+            caret-color: #40a2c5;
+            font-family: $font;
+            font-size: 15px;
+        }
+        
+        mat-select {
+            border: solid 1px #c8c8c8;
+            border-right: none;
+            border-radius: 3px;
+            padding: 5px 8px;
+            line-height: 1.5;
+            background-color: #cbf1ff;
+            font-size: 15px;
+        }
+
+        mat-form-field {
+            width: 100%;
+        }
+
+        .form-wrapper {
+            .basic-details {
+                display: flex;
+                flex-direction: row;
+
+                .topic-name {
+                    flex-basis: 33%;
+                    input {
+                        border-right: none;
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+
+                .topic-partition {
+                    flex-basis: 33%;
+                    input {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        border-right: none;
+                    }
+                }
+
+                .topic-replication {
+                    flex-basis: 33%;
+                    input {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                    }
+                }
+            }
+
+            .other-details {
+                .topic-input {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    
+                    .form-input {
+                        flex-basis: 95%;
+                    }
+
+                    .help {
+                        margin-top: -8px;
+                        .fas {
+                            color: $dark-blue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

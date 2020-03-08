@@ -1,0 +1,8 @@
+<div class="side-nav">
+    <img src="assets/icon-kafka.png" class="logo">
+    <!-- <div>KafkaMan</div> -->
+    <mat-nav-list class="list">
+        <a mat-list-item routerLink={{menu.route}} *ngFor="let menu of menus; let i = index" (click)="changeNav(i)" routerLinkActive="active-nav-item">{{menu.name}}</a>
+    </mat-nav-list>
+</div>
+

@@ -1,0 +1,32 @@
+@import "~src/styles";
+
+.side-nav {
+    background-color: $dark-blue;
+    height: 100%;
+    text-align: center;
+
+    .logo {
+        width: 100px;
+        margin-top: 20px;
+    }
+
+    .list {
+        margin-top: 10px;
+    }
+
+    .mat-list-item {
+        font-size: 19px;
+        padding: 5px 10px;
+        font-weight: 500;
+        font-family: "Work Sans", sans-serif;
+        color: white;
+    }
+
+    .active-nav-item {
+        color: black;
+        background: #fafafa !important;
+        margin-left: 35px;
+        border-radius: 10px;
+    }
+}
+

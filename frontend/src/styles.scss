@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~codemirror/lib/codemirror";
+@import "~codemirror/theme/solarized";
+@import "~codemirror/addon/lint/lint";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: "Work Sans", sans-serif;
+}
+
+$font: "Work Sans", sans-serif;
+$dark-blue: #0099cc;
+$light-blue: #cbf1ff;
+$font-size-normal: 13px;
+
+.mat-form-field-underline {
+    display: none !important;
+}
+
+.mat-select {
+    width: 80% !important;
+}
+  
+.parameters-field div.mat-form-field-wrapper,
+.headers-field div.mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+}
+
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: rgba(0,0,0,.12);
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #03a9f4;
+}
+
+.mat-select-panel .mat-option {
+    height: 40px !important;
+    font-size: small;
+    font-family: $font;
+}
+
+.mat-autocomplete-panel .mat-option {
+    height: 40px !important;
+    font-size: small;
+    font-family: $font;
+}
+
+.mat-autocomplete-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: rgba(0,0,0,.12);
+}
+
+.mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover):not(.mat-option-disabled) {
+    color: #03a9f4;
+}
+
+.mat-form-field-label-wrapper {
+    top: -15px !important;
+    font-family: $font;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: #40a2c5 !important;
+ }
+
+ .mat-select-value {
+    padding-left: 5px !important;
+    font-family: $font;
+}
+
+.mat-tab-label-content {
+    font-family: $font;
+    font-size: 15px;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar {
+    background-color: #40a2c5;;
+}
+
+.mat-header-row {
+    min-height: 40px;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, 
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{
+    background-color: #03a9f4; 
+}
+
+.mat-button-toggle-disabled.mat-button-toggle-checked {
+    background-color: #eee !important;
+    color: rgba(0,0,0,.26) !important;
+}
+
+.mat-progress-bar-fill::after {
+    background-color: $dark-blue;
+}
+
+.mat-progress-bar-buffer {
+    background: #E4E8EB;
+}
+
+.mat-progress-bar {
+    height: 1px !important;
+}
+
+::ng-deep .mat-tooltip {
+    font-family: $font !important;
+    font-size: 13px !important;
+    white-space: pre !important;
+    background-color: $dark-blue !important;
+    max-width: 500px !important !important;
+}

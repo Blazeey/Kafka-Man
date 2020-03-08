@@ -1,0 +1,82 @@
+<div class="consumer-wrapper">
+    <div class="consumer">Consumer</div>
+    <div class="request">
+        <form [formGroup]="consumerForm">
+
+            <div class="cluster-details-wrapper">
+                <mat-form-field  class="clusters" [floatLabel]="'always'">
+                    <mat-label>Cluster</mat-label>
+                    <mat-select formControlName="clusterName">
+                        <mat-option *ngFor="let cluster of clusters" [value]="cluster" class="options"> {{cluster}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="topics" [floatLabel]="'always'">
+                    <input matInput placeholder="Topic" formControlName="topic" [matAutocomplete]="auto">
+                </mat-form-field>
+                <mat-autocomplete class="topics-auto-complete" #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredTopics | async" [value]="option">
+                      {{ option }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-form-field class="message-type" [floatLabel]="'always'">
+                    <mat-label>Message Type</mat-label>
+                    <mat-select formControlName="messageType">
+                        <mat-option *ngFor="let type of messageDeserializationType" [value]="type.name" > {{type.name}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="key-type" [floatLabel]="'always'">
+                    <mat-label>Key Type</mat-label>
+                    <mat-select formControlName="keyType">
+                        <mat-option *ngFor="let type of keyDeserializationType" [value]="type.name" > {{type.name}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <section class="consume-field">
+                    <mat-button-toggle-group name="consuming" aria-label="Message consume" appearance="legacy" [disabled]="!consumerForm.valid">
+                        <mat-button-toggle value="consume" class="toggle-button" (click)="consume()">Consume</mat-button-toggle>
+                        <mat-button-toggle value="stop" class="toggle-button" [checked]=true (click)="stopConsuming()">Stop</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </section>
+            </div>
+
+            <div class="start-filter-wrapper">
+                <mat-form-field class="start-filter-select" [floatLabel]="'always'">
+                    <mat-label>Start from</mat-label>
+                    <mat-select formControlName="startFilter" (selectionChange)="changeStartFilter($event)">
+                        <mat-option *ngFor="let start of startFilter" [value]="start.value"> {{ start.name }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="start-filter-value-input" [floatLabel]="'always'" *ngIf="hideStartFilterValueInput">
+                    <mat-label> {{ startFilterLabel }} </mat-label>
+                    <input matInput formControlName="startFilterValue" [matAutocomplete]="group" [type]="startFilterValueInputType" min="0">
+                </mat-form-field>
+
+                <mat-form-field class="start-filter-value-input" [floatLabel]="'always'" *ngIf="form.startFilter.value === 'specific-date'">
+                    <mat-label> {{ startFilterLabel }} </mat-label>
+                    <input matInput formControlName="startFilterValueDate" [matDatepicker]="startdatepicker" autocomplete="off">
+                    <mat-datepicker-toggle matSuffix [for]="startdatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startdatepicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-autocomplete class="consumer-groups-complete" #group="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredGroups | async" [value]="option">
+                      {{ option }}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+
+            <div class="end-filter">
+
+            </div>
+
+            <div class="message-filter">
+
+            </div>
+        </form>
+    </div>
+    <div>
+        <app-consumer-messages [messages]="messageList">
+        </app-consumer-messages>
+    </div>
+</div>
