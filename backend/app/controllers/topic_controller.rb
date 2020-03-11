@@ -21,7 +21,11 @@ class TopicController < ApplicationController
     def all_topics
         topics = {}
         KAFKA_CLUSTERS.keys.each do |cluster|
-            topics[cluster] = KAFKA_CLUSTERS[cluster].topics
+            begin
+                topics[cluster] = KAFKA_CLUSTERS[cluster].topics
+            rescue => exception
+                puts "Cannot connect to #{cluster} cluster."
+            end
         end
         render_response(200, topics)
     end
