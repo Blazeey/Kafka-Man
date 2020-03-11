@@ -27,7 +27,6 @@ import { TopicService } from './topic/Topic.service';
 import { BrokerDetailsPipe } from './broker-details.pipe';
 import { NewClusterDialogComponent } from './new-cluster-dialog/new-cluster-dialog.component';
 import { ConsumerMessageItemComponent } from './consumer-message-item/consumer-message-item.component';
-import { JsonPipe } from './json.pipe';
 import { NewTopicDialogComponent } from './new-topic-dialog/new-topic-dialog.component';
 import { GroupComponent } from './group/group.component';
 import { GroupService } from './group/group.service';
@@ -53,7 +52,6 @@ import { ConsumerMessagesListComponent } from './consumer-messages-list/consumer
     BrokerDetailsPipe,
     NewClusterDialogComponent,
     ConsumerMessageItemComponent,
-    JsonPipe,
     NewTopicDialogComponent,
     GroupComponent,
     ChartComponent,

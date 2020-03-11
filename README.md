@@ -1,6 +1,6 @@
 # Kafka-Man
 ## Postman for Kafka
-KafkaMan is developed using Angular and Ruby on Rails.
+KafkaMan is developed using Angular and Ruby on Rails. Why Angular and RoR? Just wanted to learn.
 
 ## Motivation
 Well, got tired of using console to produce and consume messages. 
@@ -27,7 +27,7 @@ Well, got tired of using console to produce and consume messages.
 - Maintaining history of produced messages.
 
 ## Contribution
-- Got new ideas? Tell me.
+- Got new ideas? Shoot.
 - Found bugs? Try fixing them if possible :p
 - If too lazy like me to fix bugs, create a new issue. 
 - Contributions are welcome! :))
