@@ -37,6 +37,7 @@ export class ProducerComponent implements OnInit, AfterViewChecked {
   }];
   selection = new SelectionModel<Parameter>(true, []);
   displayedColumns = ['select', 'key', 'value', 'delete'];
+  isClustersLoading = true;
   
 
   constructor(private producerService: ProducerService, 
@@ -51,6 +52,7 @@ export class ProducerComponent implements OnInit, AfterViewChecked {
     .pipe(catchError(error => of('ERROR', error)))
     .subscribe(response => {
       this.topicsMap = response['message'];
+      this.isClustersLoading = false;
       this.clusters = Object.keys(response['message']);
     })
 

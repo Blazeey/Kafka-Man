@@ -1,5 +1,6 @@
 <div class="producer-class-wrapper">
     <div class="producer">Producer</div>
+    <mat-progress-bar *ngIf="isClustersLoading" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
     <div class="request">
         <form [formGroup]="producerForm" (ngSubmit)="produce()">
 

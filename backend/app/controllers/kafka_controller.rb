@@ -9,7 +9,6 @@ class KafkaController < ApplicationController
                 cluster_client = KAFKA_CLUSTERS[cluster_name]
                 cluster[:cluster_name] = cluster_name
                 broker_details = cluster_client.broker_details
-                puts broker_details
                 cluster.reverse_merge!(broker_details)
                 cluster_list.push(cluster)
             rescue => exception

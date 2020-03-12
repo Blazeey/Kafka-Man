@@ -28,6 +28,7 @@ export class ConsumerComponent implements OnInit {
   consumerGroups: {} = {};
   filteredGroups: Observable<string[]>;
   currentMessageCount: number = 0;
+  isClustersLoading = true;
 
   constructor(private consumerService: ConsumerService,
     private formBuilder: FormBuilder,
@@ -41,6 +42,7 @@ export class ConsumerComponent implements OnInit {
     .pipe(catchError(error => of('ERROR', error)))
     .subscribe(response => {
       this.topicsMap = response['message'];
+      this.isClustersLoading = false;
       this.clusters = Object.keys(response['message']);
     })
 

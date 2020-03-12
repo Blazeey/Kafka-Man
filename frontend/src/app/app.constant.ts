@@ -23,7 +23,7 @@ export class Constants {
         { name: 'text', value: 'text/plain' },
         { name: 'json', value: 'application/ld+json' },
         { name: 'xml', value: 'application/xml' },
-        { name: 'yaml', value: 'text/x-yaml' },
+        // { name: 'yaml', value: 'text/x-yaml' },
     ];
 
     public static COMPRESSION_CODEC = [
@@ -38,7 +38,7 @@ export class Constants {
         { name: 'text', value: 'text/plain' },
         { name: 'json', value: 'application/ld+json' },
         { name: 'xml', value: 'application/xml' },
-        { name: 'yaml', value: 'text/x-yaml' },
+        // { name: 'yaml', value: 'text/x-yaml' },
         { name: 'number', value: 'text/plain' },
         { name: 'bytes', value: 'text/plain' }
     ]
@@ -47,7 +47,7 @@ export class Constants {
         { name: 'text', value: 'text/plain' },
         { name: 'json', value: 'application/ld+json' },
         { name: 'xml', value: 'application/xml' },
-        { name: 'yaml', value: 'text/x-yaml' },
+        // { name: 'yaml', value: 'text/x-yaml' },
         { name: 'number', value: 'text/plain' },
         { name: 'bytes', value: 'text/plain' }
     ]

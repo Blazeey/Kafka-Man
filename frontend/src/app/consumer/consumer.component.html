@@ -1,5 +1,6 @@
 <div class="consumer-wrapper">
     <div class="consumer">Consumer</div>
+    <mat-progress-bar *ngIf="isClustersLoading" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
     <div class="request">
         <form [formGroup]="consumerForm">
 
