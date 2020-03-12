@@ -120,6 +120,12 @@
                     flex-basis: 10%;
                 }
 
+                .value {
+                    white-space: pre;
+                    overflow: auto;
+                    text-overflow: ellipsis;
+                }
+
                 .topic-details {
                     font-family: $font;
 

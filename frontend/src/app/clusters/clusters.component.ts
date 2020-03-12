@@ -25,6 +25,7 @@ export class ClustersComponent implements OnInit {
   clusterList: any[];
   displayedColumns: string[] = ['name', 'brokers', 'controlerBroker', 'produce', 'consume', 'topic', 'group', 'delete'];
   clustersProgressBar: any[];
+  isClustersLoading: boolean = true;
 
   constructor(private clusterService: ClusterService, 
     public dialog: MatDialog,
@@ -36,6 +37,7 @@ export class ClustersComponent implements OnInit {
       .pipe(catchError(error => of('ERROR', error)))
       .subscribe(response => {
         this.clusterList = response['message'];
+        this.isClustersLoading = false;
         this.clustersProgressBar = _.times(this.clusterList.length, _.constant(false));
       })
   }

@@ -52,8 +52,8 @@ class ConsumerJob < ApplicationJob
 
         RUNNING_CONSUMERS[consumer_key] = consumer
         consumer.each_message(**options) do |message|
-
-            if start_filter(checks: checks, message: message)
+            
+            if start_filter(checks: checks, message: message) && message_filter('key', value: checks[:key_type], message: message.key) && message_filter('value', value: checks[:message_type], message: message.value)
                 ActionCable.server.broadcast consumer_key, {
                     value: message.value,
                     partition: message.partition,
@@ -80,6 +80,46 @@ class ConsumerJob < ApplicationJob
             return DateTime.parse(message.create_time.to_s) >= DateTime.parse(checks[:date])
         else
             return true
+        end
+    end
+
+    def message_filter(type , value: , message: )
+        if value == 'json'
+            return valid_json?(message)
+        elsif value == 'xml'
+            return valid_xml?(message)
+        elsif value == 'number'
+            return valid_number?(message)
+        elsif value == 'bytes'
+            # TODO: Do byte conversion
+            return true
+        else
+            return true
+        end
+    end
+
+    def valid_json?(json)
+        JSON.parse(json)
+        return true
+      rescue JSON::ParserError => e
+        return false
+    end
+
+    def valid_xml?(xml)
+        begin
+            Hash.from_xml(xml)
+            return true
+        rescue => exception
+            return false
+        end
+    end
+
+    def valid_number?(number)
+        begin
+            Float(number)
+            return true
+        rescue
+            return false
         end
     end
 end
