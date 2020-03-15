@@ -18,6 +18,9 @@ Well, got tired of using console to produce and consume messages.
 - frontend/README.MD for Angular installation
 - backend/README.MD for Ruby on Rails installation
 
+## Docker
+`docker run -itd -p 4200:80 blazeey/kafka-man:latest`
+
 ## Future Works
 - Change UI - Suggestions are appreciated!
 - Fix bugs. Too lazy to fix'em now :v

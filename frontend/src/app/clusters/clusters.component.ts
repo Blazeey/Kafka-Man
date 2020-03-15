@@ -38,7 +38,8 @@ export class ClustersComponent implements OnInit {
       .subscribe(response => {
         this.clusterList = response['message'];
         this.isClustersLoading = false;
-        this.clustersProgressBar = _.times(this.clusterList.length, _.constant(false));
+        if(this.clusterList !== undefined)
+          this.clustersProgressBar = _.times(this.clusterList.length, _.constant(false));
       })
   }
 
