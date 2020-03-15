@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/blazeey/ruby-kafka
-  revision: 40d6232fc4dc1bd8657e355163fd574bd6ceabd3
+  revision: e2f758c573745f1a0cbac15eb6baf46bbe2ceaf9
   branch: master
   specs:
     ruby-kafka (0.7.10)

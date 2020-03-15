@@ -79,10 +79,3 @@ RUN bundle exec rake db:drop db:create db:migrate
 # supervisor base configuration
 COPY supervisord.conf /etc/supervisord.conf
 CMD ["supervisord", "-c", "/etc/supervisord.conf"]
-
-
-# COPY entrypoint.sh $RAILS_ROOT
-# RUN chmod +x $RAILS_ROOT/entrypoint.sh
-# CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
-# ENTRYPOINT [ "./entrypoint.sh" ]
-

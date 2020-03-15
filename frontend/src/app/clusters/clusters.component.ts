@@ -55,26 +55,32 @@ export class ClustersComponent implements OnInit {
       if(response === null || response === undefined) return;
       this.clusterService.addCluster(response['name'], response['brokers'])
         .pipe(catchError((error) => {
-          console.log(error)
-          this.snackBar.open(error.error.error, ':(', {
-            duration: 3000,
-            panelClass: 'snackbar-center'
-          });
+          this.displaySnackBar(error.error.error, ':(');
           return throwError(error);
         }))  
         .subscribe(response => {
-          this.snackBar.open('Cluster added', 'Ezzy Pzzy', {
-            duration: 3000,
-            panelClass: 'snackbar-center'
-          });
+          this.clusterList.push(response.message)
+          this.displaySnackBar('Cluster added', 'Ezzy Pzzy');
         })
     });
   }
 
   deleteCluster(clusterName: string) {
     this.clusterService.deleteCluster(clusterName)
+      .pipe(catchError(error => {
+        this.displaySnackBar(error.error.error, ':(');
+        return throwError(error);
+      }))
       .subscribe(response => {
-        this.clusterList = this.clusterList.filter(cluster => cluster['name'] != clusterName);
+        this.displaySnackBar('Cluster deleted', ':)');
+        this.clusterList = this.clusterList.filter(cluster => cluster['cluster_name'] != clusterName);
       })
+  }
+
+  displaySnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      panelClass: 'snackbar-center'
+    })
   }
 }

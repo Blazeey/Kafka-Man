@@ -4,16 +4,18 @@ class KafkaController < ApplicationController
         cluster_list = []
 
         KAFKA_CLUSTERS.keys.each do |cluster_name|
+            cluster = {}
+            cluster[:cluster_name] = cluster_name
             begin
-                cluster = {}
                 cluster_client = KAFKA_CLUSTERS[cluster_name]
-                cluster[:cluster_name] = cluster_name
                 broker_details = cluster_client.broker_details
                 cluster.reverse_merge!(broker_details)
-                cluster_list.push(cluster)
+                cluster['is_connected'] = true
             rescue => exception
+                cluster['is_connected'] = false
                 puts exception
             end
+            cluster_list.push(cluster)
         end
     
         render_response(200, cluster_list)
@@ -42,8 +44,12 @@ class KafkaController < ApplicationController
                 k.brokers
                 kafka = KafkaCluster.create(name: cluster_details[:cluster_name], broker_uri: cluster_details[:broker_uri])
                 KAFKA_CLUSTERS[cluster_details[:cluster_name]] = k
-                puts KAFKA_CLUSTERS
-                render_response(200, message: "Cluster created")
+                cluster = {}
+                cluster[:cluster_name] = cluster_details[:cluster_name]
+                cluster['is_connected'] = true
+                broker_details = k.broker_details
+                cluster.reverse_merge!(broker_details)
+                render_response(200, cluster)
             rescue => exception
                 render_response(400, 'Cannot connect to brokers')
             end
@@ -54,10 +60,10 @@ class KafkaController < ApplicationController
         if !params[:cluster_name].present?
             render_response(400, 'Cluster name should be specified')
         else
-            if !KafkaCluster.exists?(:cluster_name => params[:cluster_name])
+            if !KafkaCluster.exists?(:name => params[:cluster_name])
                 render_response(400, error: "Cluster does not exist")
             else
-                KafkaCluster.where(:cluster_name => params[:cluster_name]).delete_all
+                KafkaCluster.where(:name => params[:cluster_name]).delete_all
                 KAFKA_CLUSTERS.delete(params[:cluster_name])
                 render_response(200, 'Cluster Deleted')
             end

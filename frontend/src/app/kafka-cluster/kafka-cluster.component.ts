@@ -24,7 +24,6 @@ export class KafkaClusterComponent implements OnInit {
       }))
       .pipe(catchError(error => of('ERROR', error)))
       .subscribe(response => {
-        console.log(response)
         this.clusterDetails = response['message'];
       });
   }

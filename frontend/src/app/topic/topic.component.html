@@ -3,6 +3,21 @@
         <div class="topics">Topics - {{ clusterName }}</div>
         <button mat-raised-button (click)="addTopic()" class="add-topic"> Create topic </button>
     </div>
+    <div class="search-wrapper">
+        <form [formGroup]="topicForm"class="search-form">
+            <div class="form-wrapper">
+                <mat-form-field class="search" [floatLabel]="'always'">
+                    <input matInput autocomplete="off" formControlName="searchTopic">
+                </mat-form-field>
+                <button mat-icon-button (click)="search(0)"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="page-wrapper">
+                <button mat-icon-button (click)="search(-1)" [disabled]="pageNumber == 1"><i class="fas fa-chevron-left"></i></button>
+                <span><b> {{ pageNumber }} </b></span>
+                <button mat-icon-button (click)="search(1)" [disabled]="!nextPage"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </form>
+    </div>
     <mat-progress-bar *ngIf="isTopicsLoading" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
     <mat-accordion class="topics-accordion" multi="true" *ngIf="clusterName">
         <mat-expansion-panel *ngFor="let topic of topicsList; let i = index" class="topics-panel" (opened)="getTopicConfig(topic.name, i)">
@@ -50,6 +65,7 @@
                 </span>
             </mat-expansion-panel-header>
             <div class="topics-description-wrapper">
+                <button class="delete-topic" mat-icon-button matTooltip="Delete" matTooltipPosition="above" (click)="deleteTopic(topic.name)"><i class="fas fa-trash"></i></button>
                 <div class="partition-details">
                     <span class="partition-heading">Partitions</span>
                     <mat-list class="partition-list">

@@ -66,6 +66,7 @@ export class Constants {
 
     public static CONSUMER_CHANNEL = 'ConsumerChannel';
     public static CONSUMER_LAG_CHANNEL = 'ConsumerLagChannel';
+    public static TOPICS_CHANNEL = 'TopicsChannel';
 
     public static URL = 'http://localhost:3000';
     public static ACTIONCABLE_URL = 'ws://localhost:3000';
@@ -77,6 +78,7 @@ export class Constants {
     public static GET_TOPICS_LIST = Constants.URL + '/topics/';
     public static PRODUCE_MESSAGE = Constants.URL + '/producer/:name';
     public static CONSUME_MESSAGE_ACTION_CABLE = Constants.ACTIONCABLE_URL + '/consumer-cable';
+    public static SEARCH_TOPICS = Constants.URL + '/search-topics/:name';
     public static CONSUMER_LAG_ACTION_CABLE = Constants.ACTIONCABLE_URL + '/consumer-lag-cable';
     public static CONSUMER_MESSAGE = Constants.URL + '/consumer/:name';
     public static TOPICS_DETAIL = Constants.URL + '/topic/:name';
@@ -85,7 +87,7 @@ export class Constants {
     public static TOPIC_LEVEL_CONFIGS = Constants.URL + '/topic-configs/:name/:topic';
     public static ADD_CLUSTER = Constants.URL + '/kafka';
     public static DELETE_CLUSTER = Constants.URL + '/kafka/:name';
-    public static DELETE_TOPIC = Constants.URL + '/topic/:name/:topic';
+    public static DELETE_TOPIC = Constants.URL + '/delete-topic/:name/:topic';
     public static LIST_GROUPS = Constants.URL + '/group/:name';
     public static CONSUMER_LAG_MESSAGE = Constants.URL + '/group/:name/:group';
     public static BROKER_DETAILS = Constants.URL + '/broker/:name';

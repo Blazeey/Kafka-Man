@@ -44,7 +44,7 @@ export class GroupService {
                 this.http.get(url, options).pipe(map((response: {[key: string]: any}) => response))
                 .pipe(catchError(error => of('ERROR', error)))
                 .subscribe(response => {
-                    console.log(response);
+                    // console.log(response);
                 })
             },
             disconnected: this.disconnected,
@@ -68,6 +68,6 @@ export class GroupService {
     }
 
     private received(message: any) {
-        console.log('Received ' + message);
+        // console.log('Received ' + message);
     }
 }
