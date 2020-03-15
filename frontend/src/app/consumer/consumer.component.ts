@@ -156,7 +156,6 @@ export class ConsumerComponent implements OnInit {
 
   processMessage(message: {}) {
     this.isConsuming = true;
-    console.log(message);
     message['count'] = this.currentMessageCount++;
     this.messageList.unshift(message);
   }

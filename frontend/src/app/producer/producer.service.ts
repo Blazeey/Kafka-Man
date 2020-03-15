@@ -19,7 +19,6 @@ export class ProducerService {
         partitioningValue: any,
         compression: string,
         count: number) {
-        console.log(Constants.PRODUCE_MESSAGE)
         let url = Constants.PRODUCE_MESSAGE.replace(':name', clusterName);
         let body = {
             message: message,
@@ -34,8 +33,6 @@ export class ProducerService {
         if(partitioning == 'partition') body[partitioning] = +body[partitioning];
         if(key != '' && key !== undefined && key !== null)
             body['key'] = key;
-        console.log(url);
-        console.log(body);
         return this.http.post(url, body).pipe(map((response: {[key: string]: any}) => response));
     }
  }

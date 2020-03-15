@@ -14,7 +14,7 @@
                         <mat-panel-title class="cluster-title">
                             {{ cluster.cluster_name }}
                         </mat-panel-title>
-                        <mat-panel-description>
+                        <mat-panel-description *ngIf="cluster.is_connected">
                             <div class="cluster-header-descriptions">
                                 <div class="controller">
                                     <span class="key">Controller broker</span>
@@ -42,11 +42,19 @@
                                 </div>
                             </div>
                         </mat-panel-description>
+                        <mat-panel-description *ngIf="!cluster.is_connected">
+                            <div class="cluster-header-descriptions">
+                                <div class="controller">
+                                    <div>Cannot connect to cluster!</div>
+                                </div>
+                            </div>
+                        </mat-panel-description>
                     </div>
                 </span>
             </mat-expansion-panel-header>
             <div class="clusters-description-wrapper">
-                <div class="broker-details">
+                <button class="delete-cluster" mat-icon-button matTooltip="Delete" matTooltipPosition="above" (click)="deleteCluster(cluster.cluster_name)"><i class="fas fa-trash"></i></button>
+                <div class="broker-details" *ngIf="cluster.is_connected">
                     <span class="broker-heading">Brokers</span>
                     <mat-list class="broker-list">
                         <mat-list-item matLine *ngFor="let broker of cluster.brokers" class="partiton">

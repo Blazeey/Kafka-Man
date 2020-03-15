@@ -1,16 +1,14 @@
 import { Component, OnInit, ɵɵstylePropInterpolate1, ViewEncapsulation } from '@angular/core';
 import { TopicService } from './Topic.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, catchError } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { of, throwError } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { NewTopicDialogComponent } from '../new-topic-dialog/new-topic-dialog.component';
-import { Constants } from '../app.constant';
 import * as _ from 'lodash';
 import { KafkaClusterService } from '../kafka-cluster/kafka-cluster.service';
 import { SpeedDialFabAnimations } from '../speed-dail-fab.animations';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-topic',
@@ -32,26 +30,34 @@ export class TopicComponent implements OnInit {
   topicsList = [];
   displayedColumns: string[] = ['name', 'partitions', 'offsets', 'delete'];
   topicConfigs: any[];
-  topicsProgressBar: boolean[];
+  topicsProgressBar: boolean[] = [];
   clusters: any[];
   fabTogglerState = 'inactive';
   fabButtons = [];
   isTopicsLoading: boolean = true;
+  topicForm: FormGroup;
+  pageNumber: number = 1;
+  nextPage: boolean = false;
 
   constructor(private topicService: TopicService,
+    private formBuilder: FormBuilder,
     private clusterService: KafkaClusterService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+
+    this.topicForm = this.formBuilder.group({
+      searchTopic: ['']
+    })
+
     this.clusterService.getClusters()
       .pipe(catchError(error => of('ERROR', error)))
       .subscribe(response => {
-        console.log(response)
         this.clusters = response['message'];
         if(this.clusters.length > 0) {
           this.clusterName = this.clusters[0];
-          this.fetchClusterTopics();
+          this.fetchClusterTopics('', 1);
         }
       })
     this.topicService.listTopicConfigs()
@@ -61,11 +67,13 @@ export class TopicComponent implements OnInit {
     })
   }
 
-  fetchClusterTopics() {
+  fetchClusterTopics(search: string, page: number) {
+    this.isTopicsLoading = true;
     this.topicsList = [];
-    this.topicService.listTopics(this.clusterName)
+    this.topicService.searchTopics(this.clusterName, search, page)
     .subscribe(response => {
-      this.topicsList = response['message'];
+      this.topicsList = response['message']['topics'];
+      this.nextPage = response['message']['next'];
       this.topicsProgressBar = _.times(this.topicsList.length, _.constant(false));
       this.isTopicsLoading = false;
     })
@@ -90,18 +98,12 @@ export class TopicComponent implements OnInit {
       if(response === null || response === undefined) return;
       this.topicService.createTopic(this.clusterName, response['topicName'], response['partitions'], response['replication'], response['configs'])
       .pipe(catchError((error) => {
-        console.log(error)
-        this.snackBar.open(error.error.error, ':(', {
-          duration: 3000,
-          panelClass: 'snackbar-center'
-        });
+        this.displaySnackBar(error.error.error, ':(');
         return throwError(error);
       }))  
       .subscribe(response => {
-        this.snackBar.open('Topic created', 'Ezzy Pzzy', {
-          duration: 3000,
-          panelClass: 'snackbar-center'
-        });
+        this.topicsList.push(response.message)
+        this.displaySnackBar('Topic created', 'Ezzy Pzzy');
       })
     });
   }
@@ -116,10 +118,11 @@ export class TopicComponent implements OnInit {
       })
   }
 
-  deleteTopic(topic: string) {
-    this.topicService.deleteTopic(this.clusterName, topic)
+  deleteTopic(topicName: string) {
+    this.topicService.deleteTopic(this.clusterName, topicName)
       .subscribe(response => {
-        console.log(response);
+        this.topicsList = this.topicsList.filter(topic => topic.name != topicName);
+        this.displaySnackBar('Deleted topic', ':)');
       })
   }
 
@@ -140,7 +143,20 @@ export class TopicComponent implements OnInit {
   changeCluster(clusterName: string) {
     this.clusterName = clusterName;
     this.isTopicsLoading = true;
-    this.fetchClusterTopics();
+    this.fetchClusterTopics('', 1);
     this.hideItems();
+  }
+
+  displaySnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      panelClass: 'snackbar-center'
+    })
+  }
+
+  search(pageChange: number) {
+    if(pageChange == 0) this.pageNumber = 1;
+    else this.pageNumber = this.pageNumber + pageChange;
+    this.fetchClusterTopics(this.topicForm.controls.searchTopic.value, this.pageNumber);
   }
 }

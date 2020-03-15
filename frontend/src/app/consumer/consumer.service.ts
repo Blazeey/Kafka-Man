@@ -43,7 +43,7 @@ export class ConsumerService {
                 this.http.get(url, options).pipe(map((response: {[key: string]: any}) => response))
                 .pipe(catchError(error => of('ERROR', error)))
                 .subscribe(response => {
-                    console.log(response);
+                    // console.log(response);
                 })
             },
             disconnected: this.disconnected,
@@ -68,6 +68,6 @@ export class ConsumerService {
     }
 
     private received(message: any) {
-        console.log('Received ' + message);
+        // console.log('Received ' + message);
     }
 }

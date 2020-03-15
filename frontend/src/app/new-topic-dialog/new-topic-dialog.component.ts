@@ -50,7 +50,6 @@ export class NewTopicDialogComponent implements OnInit {
       replication: this.form.replication.value,
       configs: configs
     }
-    console.log(topic)
     this.dialogRef.close(topic);
   }
 

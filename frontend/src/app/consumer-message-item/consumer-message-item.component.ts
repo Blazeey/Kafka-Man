@@ -23,7 +23,6 @@ export class ConsumerMessageItemComponent implements OnInit, OnChanges {
     private cdRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    console.log('init')
     this.message = _.cloneDeep(this.currentMessage);
     this.setCodeMirrorOptions();
   }

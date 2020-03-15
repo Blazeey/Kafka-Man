@@ -81,6 +81,7 @@
                   flex-basis: 25%;
                   padding: 20px 0px;
                   display: flex;
+                  font-family: $font;
                   text-align: center;
                   flex-direction: column;
                 }
@@ -88,6 +89,7 @@
                 .detail {
                     padding: 20px 30px;
                     display: flex;
+                    font-family: $font;
                     text-align: center;
                     flex-direction: column;
                 }
@@ -101,7 +103,17 @@
               
                 .mat-list-base .mat-list-item {
                     height: 25px !important;
-                  }
+                }
+
+                .delete-cluster {
+                    float: right;
+
+                    .far, .fas {
+                        color: #0099cc;
+                        font-weight: 600;
+                        cursor: pointer;
+                    }
+                }
 
                 .broker-heading {
                     font-family: $font;

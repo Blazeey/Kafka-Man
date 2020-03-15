@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Constants } from '../app.constant';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable()
 export class TopicService {
 
     constructor(private http: HttpClient) {
-
     }
 
     public listTopics(clusterName: string) {
@@ -37,8 +37,16 @@ export class TopicService {
     }
 
     public getTopicConfigs(clusterName: string, topicName: string) {
-        console.log(Constants.TOPIC_LEVEL_CONFIGS)
         let url = Constants.TOPIC_LEVEL_CONFIGS.replace(':name', clusterName).replace(':topic', topicName);
         return this.http.get(url).pipe(map((response: {[key: string]: any}) => response));
+    }
+
+    public searchTopics(clusterName: string, search: string, page: number) {
+        let url = Constants.SEARCH_TOPICS.replace(':name', clusterName);
+        let data = {
+            search: search,
+             page: page
+        }
+        return this.http.post(url, data).pipe(map((response: {[key: string]: any}) => response));
     }
 }
