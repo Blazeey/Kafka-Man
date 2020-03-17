@@ -5,17 +5,15 @@
 @import "~codemirror/theme/solarized";
 @import "~codemirror/addon/lint/lint";
 @import "~@fortawesome/fontawesome-free/css/all.css";
+@import "./assets/styles/variables";
+@import "./assets/styles/mixins";
+@import "./assets/styles/utils";
 
 html, body { height: 100%; }
 body { 
     margin: 0; 
-    font-family: "Work Sans", sans-serif;
+    font-family: $font;
 }
-
-$font: "Work Sans", sans-serif;
-$dark-blue: #0099cc;
-$light-blue: #cbf1ff;
-$font-size-normal: 13px;
 
 .mat-form-field-underline {
     display: none !important;
