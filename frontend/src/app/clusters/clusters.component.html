@@ -1,7 +1,7 @@
 <div class="cluster-container">
     <div class="clusters-header">
         <div class="cluster">Clusters</div>
-        <button mat-raised-button (click)="addCluster()" class="add-cluster"> Add Cluster </button>
+        <button mat-raised-button (click)="addCluster()" class="btn-accent"> Add Cluster </button>
     </div>
     <mat-progress-bar *ngIf="isClustersLoading" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
     <mat-accordion class="cluster-accordion" multi="true" *ngIf="clusterList">

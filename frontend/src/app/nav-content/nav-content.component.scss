@@ -1,5 +1,8 @@
+@import "~src/styles";
+
 .nav-content {
-    padding: 100px;
+    padding: 32px 48px;
     font-size: 18px;
-    font-family: "Work Sans", sans-serif;
+    font-family: $font;
+    font-weight: 400;
 }

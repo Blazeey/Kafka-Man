@@ -1,7 +1,7 @@
 <div class="create-cluster-wrapper">
     <div class="heading">
         <p>Cluster Details</p>
-        <button mat-raised-button (click)="addCluster()" class="create-cluster" [disabled]="!addClusterForm.valid"> Add Cluster</button>
+        <button mat-raised-button (click)="addCluster()" class="btn-accent" [disabled]="!addClusterForm.valid">Add Cluster</button>
     </div>
     <form [formGroup]="addClusterForm" class="cluster-form">
         <div class="form-input">

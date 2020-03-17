@@ -1,7 +1,7 @@
 @import "~src/styles";
 
 .side-nav {
-    background-color: $dark-blue;
+    background-color: $primary900;
     height: 100%;
     text-align: center;
 
@@ -15,18 +15,31 @@
     }
 
     .mat-list-item {
-        font-size: 19px;
-        padding: 5px 10px;
-        font-weight: 500;
-        font-family: "Work Sans", sans-serif;
-        color: white;
+        font-size: 14px;        
+        font-weight: 400;        
+        color: $white;
+        text-transform: uppercase;
+
+        &:hover {
+            background-color: darken($primary900, 4%);
+        }
+
+        .mat-list-item-content {
+            padding: 4px 24px;
+        }
     }
 
     .active-nav-item {
-        color: black;
-        background: #fafafa !important;
-        margin-left: 35px;
-        border-radius: 10px;
-    }
+        color: $black;
+        background-color: $accent;
+        font-weight: 600;
+
+        &:hover, &:active, &:focus {
+            background-color: $accent;
+        }
+    }   
 }
 
+.mat-drawer-container {
+    background-color: #E3F2FD;
+}

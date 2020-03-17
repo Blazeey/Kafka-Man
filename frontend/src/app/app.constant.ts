@@ -1,8 +1,8 @@
 export class Constants {
     public static MENUS = [
         { name: 'Clusters', route: '/clusters' },
-        { name: 'Produce', route: '/producer' },
-        { name: 'Consume', route: '/consumer' },
+        { name: 'Producer', route: '/producer' },
+        { name: 'Consumer', route: '/consumer' },
         { name: 'Topics', route: '/topic' }
         // { name: 'Brokers', route: '/brokers' },
         // { name: 'Metrics', route: '/metrics' }

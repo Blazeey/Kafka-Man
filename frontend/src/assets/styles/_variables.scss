@@ -1,4 +1,13 @@
 /* COLORS */
+// BASE
+$white          : #FFFFFF;
+$black          : #333333;
+
+// LIGHT THEME
+$primary50      : #E3F2FD;
+$primary900     : #0D47A1;
+
+$accent         : #FBC02D;
 $dark-blue      : #0099cc;
 $light-blue     : #cbf1ff;
 
@@ -6,5 +15,5 @@ $light-blue     : #cbf1ff;
 
 
 /* TYPOGRAPHY */
-$font: "Work Sans", sans-serif;
+$font: 'Inter', sans-serif;
 $font-size-normal: 13px;

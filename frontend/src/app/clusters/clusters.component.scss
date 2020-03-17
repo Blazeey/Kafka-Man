@@ -1,7 +1,7 @@
 @import "~src/styles";
 
 .mat-expansion-panel {
-    background-color: $light-blue;
+    background-color: $white;
 }
 
 .mat-expansion-panel-header-title {
@@ -11,7 +11,7 @@
     flex-grow: unset !important;
     justify-content: center;
     font-family: $font;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .mat-expansion-panel-header {
@@ -34,7 +34,7 @@
         align-items: center;
         .cluster {
             font-size: 25px;
-            font-weight: 600;
+            font-weight: 400;
         }
 
         .add-cluster {

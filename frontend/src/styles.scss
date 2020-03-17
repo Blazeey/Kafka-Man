@@ -1,4 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+/*TABLE OF CONTENTS
+---------------------------------
+1) IMPORTS              : STIMP
+2) GLOBAL               : STGLB
+3) MATERIAL OVERRIDES   : STMAT
+4) BUTTONS              : STBTN
+---------------------------------
+*/
+
+
+/* IMPORTS START: STIMP */
 @import '~@angular/material/theming';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "~codemirror/lib/codemirror";
@@ -8,13 +18,23 @@
 @import "./assets/styles/variables";
 @import "./assets/styles/mixins";
 @import "./assets/styles/utils";
+/* IMPORTS END */
+
+
+/* GLOBAL START: STGLB ------------------------- */
+:root, * {
+    font-family: $font;
+}
 
 html, body { height: 100%; }
 body { 
     margin: 0; 
     font-family: $font;
 }
+/* GLOBAL END ------------------------- */
 
+
+/* MATERIAL OVERRIDES START: STMAT ------------------------- */
 .mat-form-field-underline {
     display: none !important;
 }
@@ -112,3 +132,38 @@ body {
     background-color: $dark-blue !important;
     max-width: 500px !important !important;
 }
+
+.mat-drawer-container {
+    background-color: lighten($color: $primary50, $amount: 2%);
+}
+
+/* MATERIAL OVERRIDES END ------------------------- */
+
+
+/* BUTTONS START: STBTN ------------------------- */
+// Accent Button
+.btn-accent:not([disabled]) {
+    background-color: $accent;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 16px;
+    margin: 8px 0;
+    box-shadow: 0px 4px 4px -4px darken($color: $accent, $amount: 10%) !important;
+
+    &:hover {
+        background-color: darken($accent, 10%);
+        box-shadow: 0px 4px 16px -4px darken($color: $accent, $amount: 10%) !important;
+    }
+}
+
+// Disabled Button
+.mat-raised-button[disabled] {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 16px;
+    margin: 8px 0;
+}
+
+/* BUTTONS END ------------------------- */
