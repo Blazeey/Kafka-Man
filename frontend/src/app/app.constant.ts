@@ -303,6 +303,478 @@ export class Constants {
             importance: "low"
         }
     ]
+
+    // MOCK DATA
+
+    public static LIST_CLUSTERS_MOCK = {
+        "statusCode": 200,
+        "message": [
+            {
+                "brokers": [
+                    {
+                        "node_id": 2,
+                        "host": "0.0.0.0",
+                        "port": 9093
+                    },
+                    {
+                        "node_id": 1,
+                        "host": "0.0.0.0",
+                        "port": 9092
+                    }
+                ],
+                "controller_broker": {
+                    "node_id": 2,
+                    "host": "0.0.0.0",
+                    "port": 9093
+                },
+                "partitions_per_broker": {
+                    "1": 10,
+                    "2": 10
+                },
+                "count": 20,
+                "average": 10,
+                "max": 10,
+                "min": 10,
+                "cluster_name": "local",
+                "is_connected": true
+            }
+        ]
+    }
+
+    public static GET_TOPICS_LIST_MOCK = {
+        "statusCode": 200,
+        "message": {
+            "local": [
+                "first",
+                "second",
+                "three",
+                "four"
+            ],
+            "New-cluster": [
+                "one",
+                "two",
+                "three",
+                "four"
+            ]
+        }
+    }
+
+    public static CONSUME_MESSAGES_MOCK = [
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+        {"value": "{\"a\": \"b\",\"c\": \"d\"}", "partition": 3, "key": null, "headers": {}, "offset": 98, "creation_timestamp": "2020-03-14T23:25:50.600+05:30"},
+    ]
+
+    public static CLUSTER_NAMES_MOCK = {
+        "statusCode": 200,
+        "message": [
+            "local",
+            "dummy2",
+            "dummy3"
+        ]
+    }
+
+    public static LIST_TOPIC_CONFIGS_MOCK = {
+        "statusCode": 200,
+        "message": {
+            "Cleanup Policy": "cleanup.policy",
+            "Compression Type": "compression.type",
+            "Delete Retention": "delete.retention.ms",
+            "File delete delay ms": "file.delete.delay.ms",
+            "Flush Messages": "flush.messages",
+            "Flush ms": "flush.ms",
+            "Follower Replication Throttled replicas": "follower.replication.throttled.replicas",
+            "Index Interval bytes": "index.interval.bytes",
+            "Leader Replication Throttled replicas": "leader.replication.throttled.replicas",
+            "Max compaction lag": "max.compaction.lag.ms",
+            "Max message bytes": "max.message.bytes",
+            "Message format version": "message.format.version",
+            "Message timestamp difference": "message.timestamp.difference.max.ms",
+            "Message timestamp type": "message.timestamp.type",
+            "Min cleanable dirty ratio": "min.cleanable.dirty.ratio",
+            "Min compaction lag": "min.compaction.lag.ms",
+            "Min insync replicas": "min.insync.replicas",
+            "Preallocate": "preallocate",
+            "Retention bytes": "retention.bytes",
+            "Retention ms": "retention.ms",
+            "Segment bytes": "segment.bytes",
+            "Segment index bytes": "segment.index.bytes",
+            "Segment jitterms": "segment.jitter.ms",
+            "Segment ms": "segment.ms",
+            "Unclean leader election enable": "unclean.leader.election.enable",
+            "Message down conversion enable": "message.downconversion.enable"
+        }
+    }
+
+    public static TOPIC_DETAILS_MOCK = {
+        "statusCode": 200,
+        "message": {
+            "topics": [
+                {
+                    "name": "first",
+                    "partitions": [
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 0,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 1,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 2,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 3,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 4,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 5,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 6,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 7,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 8,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 9,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        }
+                    ],
+                    "offsets": {
+                        "0": 113,
+                        "8": 96,
+                        "2": 90,
+                        "4": 97,
+                        "6": 98,
+                        "5": 102,
+                        "9": 95,
+                        "1": 101,
+                        "7": 108,
+                        "3": 100
+                    },
+                    "count": 1000,
+                    "average": 100,
+                    "max": 113,
+                    "min": 90,
+                    "percentile": 110.75,
+                    "below_min_isr": 0,
+                    "avg_isr": 2
+                },
+                {
+                    "name": "second",
+                    "partitions": [
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 0,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 1,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 2,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 3,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 4,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 5,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 6,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 7,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 8,
+                            "leader": 2,
+                            "replicas": [
+                                2,
+                                1
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        },
+                        {
+                            "partition_error_code": 0,
+                            "partition_id": 9,
+                            "leader": 1,
+                            "replicas": [
+                                1,
+                                2
+                            ],
+                            "isr": [
+                                1,
+                                2
+                            ]
+                        }
+                    ],
+                    "offsets": {
+                        "0": 0,
+                        "8": 0,
+                        "2": 0,
+                        "4": 0,
+                        "6": 0,
+                        "5": 0,
+                        "9": 0,
+                        "1": 0,
+                        "7": 0,
+                        "3": 0
+                    },
+                    "count": 0,
+                    "average": 0,
+                    "max": 0,
+                    "min": 0,
+                    "percentile": 0.0,
+                    "below_min_isr": 0,
+                    "avg_isr": 2
+                }
+            ],
+            "next": false
+        }
+    }
+
+    public static TOPIC_LEVEL_CONFIGS_MOCK = {
+        "statusCode": 200,
+        "message": {
+            "compression.type": "producer",
+            "leader.replication.throttled.replicas": "",
+            "message.downconversion.enable": "true",
+            "min.insync.replicas": "1",
+            "segment.jitter.ms": "0",
+            "cleanup.policy": "delete",
+            "flush.ms": "9223372036854775807",
+            "follower.replication.throttled.replicas": "",
+            "segment.bytes": "1073741824",
+            "retention.ms": "604800000",
+            "flush.messages": "9223372036854775807",
+            "message.format.version": "2.3-IV1",
+            "file.delete.delay.ms": "60000",
+            "max.compaction.lag.ms": "9223372036854775807",
+            "max.message.bytes": "1000012",
+            "min.compaction.lag.ms": "0",
+            "message.timestamp.type": "CreateTime",
+            "preallocate": "false",
+            "min.cleanable.dirty.ratio": "0.5",
+            "index.interval.bytes": "4096",
+            "unclean.leader.election.enable": "false",
+            "retention.bytes": "-1",
+            "delete.retention.ms": "86400000",
+            "segment.ms": "604800000",
+            "message.timestamp.difference.max.ms": "9223372036854775807",
+            "segment.index.bytes": "10485760"
+        }
+    }
 };
 
 

@@ -6,6 +6,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { NewClusterDialogComponent } from '../new-cluster-dialog/new-cluster-dialog.component';
 import * as _ from 'lodash';
+import { Constants } from '../app.constant';
 
 @Component({
   selector: 'app-clusters',
@@ -33,14 +34,15 @@ export class ClustersComponent implements OnInit {
   }
 
   getClusters() {
-    this.clusterService.getClusterList()
-      .pipe(catchError(error => of('ERROR', error)))
-      .subscribe(response => {
+    // this.clusterService.getClusterList()
+    //   .pipe(catchError(error => of('ERROR', error)))
+    //   .subscribe(response => {
+      let response = Constants.LIST_CLUSTERS_MOCK;
         this.clusterList = response['message'];
         this.isClustersLoading = false;
         if(this.clusterList !== undefined)
           this.clustersProgressBar = _.times(this.clusterList.length, _.constant(false));
-      })
+      // })
   }
 
   ngOnInit() {

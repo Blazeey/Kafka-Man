@@ -48,13 +48,14 @@ export class ProducerComponent implements OnInit, AfterViewChecked {
     private snackBar: MatSnackBar) { }
   
   ngOnInit() {
-    this.clusterService.getTopicsList()
-    .pipe(catchError(error => of('ERROR', error)))
-    .subscribe(response => {
+    // this.clusterService.getTopicsList()
+    // .pipe(catchError(error => of('ERROR', error)))
+    // .subscribe(response => {
+      let response = Constants.GET_TOPICS_LIST_MOCK;
       this.topicsMap = response['message'];
       this.isClustersLoading = false;
       this.clusters = Object.keys(response['message']);
-    })
+    // })
 
     this.producerForm = this.formBuilder.group({
       clusterName: ['', Validators.required],

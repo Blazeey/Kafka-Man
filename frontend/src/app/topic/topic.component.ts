@@ -2,13 +2,14 @@ import { Component, OnInit, ɵɵstylePropInterpolate1, ViewEncapsulation } from 
 import { TopicService } from './Topic.service';
 import { switchMap, catchError } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { of, throwError } from 'rxjs';
+import { of, throwError, config } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { NewTopicDialogComponent } from '../new-topic-dialog/new-topic-dialog.component';
 import * as _ from 'lodash';
 import { KafkaClusterService } from '../kafka-cluster/kafka-cluster.service';
 import { SpeedDialFabAnimations } from '../speed-dail-fab.animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Constants } from '../app.constant';
 
 @Component({
   selector: 'app-topic',
@@ -51,32 +52,36 @@ export class TopicComponent implements OnInit {
       searchTopic: ['']
     })
 
-    this.clusterService.getClusters()
-      .pipe(catchError(error => of('ERROR', error)))
-      .subscribe(response => {
+    // this.clusterService.getClusters()
+    //   .pipe(catchError(error => of('ERROR', error)))
+    //   .subscribe(response => {
+      let response = Constants.CLUSTER_NAMES_MOCK;
         this.clusters = response['message'];
         if(this.clusters.length > 0) {
           this.clusterName = this.clusters[0];
           this.fetchClusterTopics('', 1);
         }
-      })
-    this.topicService.listTopicConfigs()
-    .pipe(catchError(error => of('ERROR', error)))
-    .subscribe(configs => {
+      // })
+      let configs = Constants.LIST_TOPIC_CONFIGS_MOCK;
+    // this.topicService.listTopicConfigs()
+    // .pipe(catchError(error => of('ERROR', error)))
+    // .subscribe(configs => {
       this.topicConfigs = _.map(configs['message'], (key, value) => ({key, value}))
-    })
+    // })
   }
 
   fetchClusterTopics(search: string, page: number) {
     this.isTopicsLoading = true;
     this.topicsList = [];
-    this.topicService.searchTopics(this.clusterName, search, page)
-    .subscribe(response => {
+
+    let response = Constants.TOPIC_DETAILS_MOCK;
+    // this.topicService.searchTopics(this.clusterName, search, page)
+    // .subscribe(response => {
       this.topicsList = response['message']['topics'];
       this.nextPage = response['message']['next'];
       this.topicsProgressBar = _.times(this.topicsList.length, _.constant(false));
       this.isTopicsLoading = false;
-    })
+    // })
   }
 
   topicDetails(part: number) {
@@ -111,11 +116,12 @@ export class TopicComponent implements OnInit {
   getTopicConfig(topicName: string, index: number) {
     if('config' in this.topicsList[index]) return;
     this.topicsProgressBar[index] = true;
-    this.topicService.getTopicConfigs(this.clusterName, topicName)
-      .subscribe(response => {
+    let response = Constants.TOPIC_LEVEL_CONFIGS_MOCK;
+    // this.topicService.getTopicConfigs(this.clusterName, topicName)
+    //   .subscribe(response => {
         this.topicsList.filter(topic => topic['name'] == topicName)[0]['config'] = response['message'];
         this.topicsProgressBar[index] = false;
-      })
+      // })
   }
 
   deleteTopic(topicName: string) {

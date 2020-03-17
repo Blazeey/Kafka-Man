@@ -18,7 +18,7 @@ import { TooltipPosition } from '@angular/material';
 })
 export class ConsumerComponent implements OnInit {
 
-  messageList: any[] = [];
+  messageList: any[] = Constants.CONSUME_MESSAGES_MOCK;
   topicsList: [];
   clusters: string[] = [];
   topicsMap: {} = {};
@@ -38,13 +38,15 @@ export class ConsumerComponent implements OnInit {
 
   ngOnInit() {
 
-    this.clusterService.getTopicsList()
-    .pipe(catchError(error => of('ERROR', error)))
-    .subscribe(response => {
+    // this.clusterService.getTopicsList()
+    // .pipe(catchError(error => of('ERROR', error)))
+    // .subscribe(response => {
+
+      let response = Constants.GET_TOPICS_LIST_MOCK;
       this.topicsMap = response['message'];
       this.isClustersLoading = false;
       this.clusters = Object.keys(response['message']);
-    })
+    // })
 
     this.consumerForm = this.formBuilder.group({
       clusterName: ['', Validators.required],
@@ -149,9 +151,9 @@ export class ConsumerComponent implements OnInit {
     let startFilterValueDate = (form.startFilterValueDate.value as Date).toLocaleString();
     if(startFilter === 'specific-date')
       startFilterValue = startFilterValueDate;
-    this.consumerService.consume(clusterName, topic, messageType, 
-      keyType, startFilter, startFilterValue,
-      this.processMessage.bind(this));
+    // this.consumerService.consume(clusterName, topic, messageType, 
+    //   keyType, startFilter, startFilterValue,
+    //   this.processMessage.bind(this));
   }
 
   processMessage(message: {}) {
@@ -162,7 +164,7 @@ export class ConsumerComponent implements OnInit {
 
   stopConsuming() {
     this.isConsuming = false;
-    this.consumerService.stopConsuming();
+    // this.consumerService.stopConsuming();
   }
 
   validateTopic(control: AbstractControl) {
