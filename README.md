@@ -19,7 +19,7 @@ Well, got tired of using console to produce and consume messages.
 - backend/README.MD for Ruby on Rails installation
 
 ## Docker
-`docker run -itd -p 4200:80 blazeey/kafka-man:latest`
+`docker run -itd -p 4200:80 -p 3000:3000 blazeey/kafka-man:latest`
 
 ## Future Works
 - Change UI - Suggestions are appreciated!
