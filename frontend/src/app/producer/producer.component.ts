@@ -132,7 +132,7 @@ export class ProducerComponent implements OnInit, AfterViewChecked {
         return throwError(error)
       }))
       .subscribe(response => {
-        this.snackBar.open('Message Produced', 'Ezzy Pzzy', {
+        this.snackBar.open('Message Produced', '', {
           duration: 2000,
           panelClass: 'snackbar-center'
         });

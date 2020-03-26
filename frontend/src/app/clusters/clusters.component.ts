@@ -61,7 +61,7 @@ export class ClustersComponent implements OnInit {
         }))  
         .subscribe(response => {
           this.clusterList.push(response.message)
-          this.displaySnackBar('Cluster added', 'Ezzy Pzzy');
+          this.displaySnackBar('Cluster added', '');
         })
     });
   }

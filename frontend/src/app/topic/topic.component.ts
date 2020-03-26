@@ -103,7 +103,7 @@ export class TopicComponent implements OnInit {
       }))  
       .subscribe(response => {
         this.topicsList.push(response.message)
-        this.displaySnackBar('Topic created', 'Ezzy Pzzy');
+        this.displaySnackBar('Topic created', '');
       })
     });
   }

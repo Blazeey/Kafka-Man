@@ -5,6 +5,16 @@ KafkaMan is developed using Angular and Ruby on Rails. Why Angular and RoR? Just
 ## Motivation
 Well, got tired of using console to produce and consume messages. 
 
+## Installation
+- frontend/README.MD for Angular installation
+- backend/README.MD for Ruby on Rails installation
+
+## Docker
+`docker run -itd -p 4200:80 -p 3259:3259 blazeey/kafka-man:latest`
+
+## Local Cluster in Docker
+For using local cluster in docker, user IP of your machine. Ex. 192.168.0.103:9092
+
 ### Clusters
 ![Clusters](clusters.png)
 ### Producer
@@ -13,13 +23,6 @@ Well, got tired of using console to produce and consume messages.
 ![Consumer](consumer.png)
 ### Topics
 ![Topics](topics.png)
-
-## Installation
-- frontend/README.MD for Angular installation
-- backend/README.MD for Ruby on Rails installation
-
-## Docker
-`docker run -itd -p 4200:80 -p 3000:3000 blazeey/kafka-man:latest`
 
 ## Future Works
 - Change UI - Suggestions are appreciated!
