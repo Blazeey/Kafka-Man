@@ -118,30 +118,47 @@
             }
         }
 
-        .start-filter-wrapper {
-
+        .start-search-wrapper {
             display: flex;
-            flex-direction: row;
-            height: 60px;
-            width: 60%;
-            padding-bottom: 10px;
 
-            input {
-                border-right: solid 1px #c8c8c8;
+            .start-filter-wrapper {
+
+                display: flex;
+                flex-direction: row;
+                height: 60px;
+                width: 60%;
+                padding-bottom: 10px;
+    
+                input {
+                    border-right: solid 1px #c8c8c8;
+                }
+    
+                .mat-select {
+                    width: 100% !important;
+                }
+    
+                .start-filter-select {
+                    width: 20%
+                }
+    
+                .start-filter-value-input {
+                    margin-left: 15px;
+                    // flex-basis: 50%;
+                    flex-grow: 20;
+                }
             }
 
-            .mat-select {
-                width: 100% !important;
-            }
-
-            .start-filter-select {
-                width: 20%
-            }
-
-            .start-filter-value-input {
-                margin-left: 15px;
-                // flex-basis: 50%;
-                flex-grow: 20;
+            .search-input-wrapper {
+                width: 40%;
+                margin-left: 80px;
+                input {
+                    border: solid 1px #c8c8c8;
+                    border-radius: 4px;
+                    width: 100% !important;
+                }
+                .search-input {
+                    width: 90%;
+                }
             }
         }
 

@@ -27,6 +27,7 @@
     "@types/js-yaml": "^3.12.2",
     "@types/lodash": "^4.14.149",
     "actioncable": "^5.2.4-1",
+    "angular2-actioncable": "^6.0.2",
     "bootstrap": "^4.4.1",
     "chartjs": "^0.3.24",
     "codemirror": "^5.51.0",
@@ -35,7 +36,7 @@
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "rxjs": "^6.4.0",
+    "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

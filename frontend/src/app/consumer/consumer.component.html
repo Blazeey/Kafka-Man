@@ -40,31 +40,41 @@
                 </section>
             </div>
 
-            <div class="start-filter-wrapper">
-                <mat-form-field class="start-filter-select" [floatLabel]="'always'">
-                    <mat-label>Start from</mat-label>
-                    <mat-select formControlName="startFilter" (selectionChange)="changeStartFilter($event)">
-                        <mat-option *ngFor="let start of startFilter" [value]="start.value"> {{ start.name }} </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <mat-form-field class="start-filter-value-input" [floatLabel]="'always'" *ngIf="hideStartFilterValueInput">
-                    <mat-label> {{ startFilterLabel }} </mat-label>
-                    <input matInput formControlName="startFilterValue" [matAutocomplete]="group" [type]="startFilterValueInputType" min="0">
-                </mat-form-field>
-
-                <mat-form-field class="start-filter-value-input" [floatLabel]="'always'" *ngIf="form.startFilter.value === 'specific-date'">
-                    <mat-label> {{ startFilterLabel }} </mat-label>
-                    <input matInput formControlName="startFilterValueDate" [matDatepicker]="startdatepicker" autocomplete="off">
-                    <mat-datepicker-toggle matSuffix [for]="startdatepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #startdatepicker></mat-datepicker>
-                </mat-form-field>
-
-                <mat-autocomplete class="consumer-groups-complete" #group="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredGroups | async" [value]="option">
-                      {{ option }}
-                    </mat-option>
-                </mat-autocomplete>
+            <div class="start-search-wrapper">
+                <div class="start-filter-wrapper">
+                    <mat-form-field class="start-filter-select" [floatLabel]="'always'">
+                        <mat-label>Start from</mat-label>
+                        <mat-select formControlName="startFilter" (selectionChange)="changeStartFilter($event)">
+                            <mat-option *ngFor="let start of startFilter" [value]="start.value"> {{ start.name }} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <mat-form-field class="start-filter-value-input" [floatLabel]="'always'" *ngIf="hideStartFilterValueInput">
+                        <mat-label> {{ startFilterLabel }} </mat-label>
+                        <input matInput formControlName="startFilterValue" [matAutocomplete]="group" [type]="startFilterValueInputType" min="0">
+                    </mat-form-field>
+    
+                    <mat-form-field class="start-filter-value-input" [floatLabel]="'always'" *ngIf="form.startFilter.value === 'specific-date'">
+                        <mat-label> {{ startFilterLabel }} </mat-label>
+                        <input matInput formControlName="startFilterValueDate" [matDatepicker]="startdatepicker" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="startdatepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startdatepicker></mat-datepicker>
+                    </mat-form-field>
+    
+                    <mat-autocomplete class="consumer-groups-complete" #group="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredGroups | async" [value]="option">
+                          {{ option }}
+                        </mat-option>
+                    </mat-autocomplete>
+    
+                </div>
+                
+                <div class="search-input-wrapper">
+                    <mat-form-field class="search-input" [floatLabel]="'always'">
+                        <mat-label> Search </mat-label>
+                        <input matInput formControlName="search" type="text" autocomplete="off">
+                    </mat-form-field>
+                </div>
             </div>
 
             <div class="end-filter">
@@ -77,7 +87,7 @@
         </form>
     </div>
     <div>
-        <app-consumer-messages [messages]="messageList">
+        <app-consumer-messages [messages]="messageList" [searchQuery]="form.search.value">
         </app-consumer-messages>
     </div>
 </div>

@@ -8,6 +8,7 @@ import { EventEmitter } from '@angular/core';
 })
 export class ConsumerMessagesListComponent implements OnInit {
   @Input('messages') messages: [];
+  @Input('searchQuery') search: string;
   @Output() notifyCurrentMessage: EventEmitter<any> = new EventEmitter();
   currentMessage: number = 0;
 
@@ -19,5 +20,12 @@ export class ConsumerMessagesListComponent implements OnInit {
   changeCurrentElement(message: any) {
     this.currentMessage = message['count'];
     this.notifyCurrentMessage.emit(message);
+  }
+
+  get filteredMessages() {
+    return this.messages.filter(message => {
+      let value: string = message['value'];
+      return value.includes(this.search)
+    });
   }
 }

@@ -3,3 +3,4 @@ frontend/node_modules
 
 backend/test
 backend/log
+backend/kafka-man_development

@@ -12,13 +12,15 @@ export class ConsumerService {
     subscriptions: ActionCable.Subscriptions;
     channel: ActionCable.Channel;
 
+    currentConsumers: string[] = [];
+
     constructor(private http: HttpClient) { 
         this.cable = ActionCable.createConsumer(Constants.CONSUME_MESSAGE_ACTION_CABLE);
     }
 
     consume(clusterName: string, topic: string, messageType: string,
         keyType: string, startFilter: string, startFilterValue: string,
-        callback: (message: string) => any) {
+        consumerId: string, callback: (message: string) => any) {
 
         let url = Constants.CONSUMER_MESSAGE.replace(':name', clusterName);
 
@@ -39,12 +41,15 @@ export class ConsumerService {
             ...params
         }, {
             connected: () => {
-                this.connected;
-                this.http.get(url, options).pipe(map((response: {[key: string]: any}) => response))
-                .pipe(catchError(error => of('ERROR', error)))
-                .subscribe(response => {
-                    // console.log(response);
-                })
+                if(!this.currentConsumers.includes(consumerId)){
+                    this.connected();
+                    this.http.get(url, options).pipe(map((response: {[key: string]: any}) => response))
+                    .pipe(catchError(error => of('ERROR', error)))
+                    .subscribe(response => {
+                        // console.log(response);
+                        this.currentConsumers.push(consumerId);
+                    })
+                }
             },
             disconnected: this.disconnected,
             received: (message) => {
@@ -54,7 +59,8 @@ export class ConsumerService {
         });
     }
 
-    public stopConsuming() {
+    public stopConsuming(consumerId: string) {
+        this.currentConsumers = this.currentConsumers.filter(c => c!= consumerId);
         this.channel.unsubscribe();
         this.cable.disconnect();
     }

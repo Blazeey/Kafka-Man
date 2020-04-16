@@ -4,7 +4,8 @@ class ProducerController < ApplicationController
     end
 
     def produce
-        kafka = KAFKA_CLUSTERS[params[:cluster_name]]
+        k = KafkaCluster.find_by(name: params[:cluster_name])
+        kafka = Kafka.new(k.broker_uri.split(","), client_id: "KafkaMan", logger: Rails.logger)
         type = params[:type]
         if type == 'json'
             message = params[:message].to_json

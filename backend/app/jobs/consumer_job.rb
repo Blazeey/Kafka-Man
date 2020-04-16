@@ -5,6 +5,8 @@ class ConsumerJob < ApplicationJob
     def perform(params)
         puts "performing job"
         kafka = KAFKA_CLUSTERS[params[:cluster_name]]
+        # k = KafkaCluster.find_by(name: params[:cluster_name])
+        # kafka = Kafka.new(k.broker_uri.split(","), client_id: "KafkaMan", logger: Rails.logger)
         cluster_name = params[:cluster_name]
         topic = params[:topic]
         message_type = params[:message_type]

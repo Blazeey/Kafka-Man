@@ -29,6 +29,7 @@ export class ConsumerComponent implements OnInit {
   filteredGroups: Observable<string[]>;
   currentMessageCount: number = 0;
   isClustersLoading = true;
+  consumerId: string;
 
   constructor(private consumerService: ConsumerService,
     private formBuilder: FormBuilder,
@@ -54,6 +55,7 @@ export class ConsumerComponent implements OnInit {
       startFilter: ['none'],
       startFilterValue: ['', [this.validateStartFilterInput.bind(this)]],
       startFilterValueDate: ['', [this.validateDate.bind(this)]],
+      search: ['']
     });
 
     this.filteredTopics = this.consumerForm.controls.topic.valueChanges
@@ -147,11 +149,12 @@ export class ConsumerComponent implements OnInit {
     let startFilter = form.startFilter.value;
     let startFilterValue = form.startFilterValue.value;
     let startFilterValueDate = (form.startFilterValueDate.value as Date).toLocaleString();
+    this.consumerId = Math.random().toString(36).substring(7);
     if(startFilter === 'specific-date')
       startFilterValue = startFilterValueDate;
     this.consumerService.consume(clusterName, topic, messageType, 
       keyType, startFilter, startFilterValue,
-      this.processMessage.bind(this));
+      this.consumerId, this.processMessage.bind(this));
   }
 
   processMessage(message: {}) {
@@ -162,7 +165,7 @@ export class ConsumerComponent implements OnInit {
 
   stopConsuming() {
     this.isConsuming = false;
-    this.consumerService.stopConsuming();
+    this.consumerService.stopConsuming(this.consumerId);
   }
 
   validateTopic(control: AbstractControl) {

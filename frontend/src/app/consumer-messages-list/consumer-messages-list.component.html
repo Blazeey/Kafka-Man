@@ -1,6 +1,6 @@
 <div class="message-list-wrapper">
     <mat-list class="messages-list">
-        <mat-list-item *ngFor="let message of messages; let i = index;" [ngClass]="{'message-item': true, 'highlight': currentMessage == message.count}" (click)="changeCurrentElement(message)">
+        <mat-list-item *ngFor="let message of filteredMessages; let i = index;" [ngClass]="{'message-item': true, 'highlight': currentMessage == message.count}" (click)="changeCurrentElement(message)">
             <div class="message-card">
                 <div matLine class="message-details-wrapper">
                     <div class="partition">

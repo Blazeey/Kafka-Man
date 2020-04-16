@@ -20,7 +20,7 @@
     </div>
     <mat-progress-bar *ngIf="isTopicsLoading" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
     <mat-accordion class="topics-accordion" multi="true" *ngIf="clusterName">
-        <mat-expansion-panel *ngFor="let topic of topicsList; let i = index" class="topics-panel" (opened)="getTopicConfig(topic.name, i)">
+        <mat-expansion-panel [disabled]="topic.error" *ngFor="let topic of topicsList; let i = index" class="topics-panel" (opened)="getTopicConfig(topic.name, i)">
             <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
                 <span class="mat-content">
                     <mat-progress-bar *ngIf="!topicsProgressBar[i]" class="progress-bar" mode="determinate" value="100"></mat-progress-bar>
@@ -29,7 +29,7 @@
                         <mat-panel-title class="topic-title">
                             {{ topic.name }}
                         </mat-panel-title>
-                        <mat-panel-description>
+                        <mat-panel-description *ngIf="!topic.error">
                             <div class="topic-header-descriptions">
                                 <div class="detail">
                                     <span class="key">Partitions</span>
@@ -58,6 +58,13 @@
                                 <div class="detail">
                                     <span class="key">95th Percentile</span>
                                     <span class="value">{{topic.percentile | number}}</span>
+                                </div>
+                            </div>
+                        </mat-panel-description>
+                        <mat-panel-description *ngIf="topic.error">
+                            <div class="topic-header-descriptions">
+                                <div class="error">
+                                    <div> {{ topic.error }} </div>
                                 </div>
                             </div>
                         </mat-panel-description>

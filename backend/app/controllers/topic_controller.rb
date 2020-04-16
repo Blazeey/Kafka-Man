@@ -8,11 +8,16 @@ class TopicController < ApplicationController
         if !params[:cluster_name].present? || !KafkaCluster.exists?(:name => params[:cluster_name])
             render_response(400, 'Cluster name not present')
         else
-            KAFKA_CLUSTERS[params[:cluster_name]].refresh_cluster
-            topics = KAFKA_CLUSTERS[params[:cluster_name]].topics
+            kafka = KAFKA_CLUSTERS[params[:cluster_name]]
+            kafka.refresh_cluster
+            topics = kafka.topics
             topics_list = []
             topics.each do |topic|
-                topic_description = KAFKA_CLUSTERS[params[:cluster_name]].topic_statistics(topic: topic)
+                begin
+                    topic_description = kafka.topic_statistics(topic: topic)
+                rescue => exception
+                    topic_description = { name: topic, error: exception }
+                end
                 topics_list.push(topic_description)
             end
             render_response(200, topics_list)
@@ -23,19 +28,24 @@ class TopicController < ApplicationController
         if !params[:cluster_name].present? || !KafkaCluster.exists?(:name => params[:cluster_name])
             render_response(400, 'Cluster name not present')
         else
+            kafka = KAFKA_CLUSTERS[params[:cluster_name]]
             response = {}
             page_size = 50
             search  = params[:search]
             page = params[:page]
-            KAFKA_CLUSTERS[params[:cluster_name]].refresh_cluster
-            topics = KAFKA_CLUSTERS[params[:cluster_name]].topics
+            kafka.refresh_cluster
+            topics = kafka.topics
             topics = topics.select{ |topic| topic.start_with?(search) }
             response['next'] = (topics.count > page * page_size)
             start = (page - 1) * page_size
             topics = topics[start, start + page_size - 1]
             topics_list = []
             topics.each do |topic|
-                topic_description = KAFKA_CLUSTERS[params[:cluster_name]].topic_statistics(topic: topic)
+                begin
+                    topic_description = kafka.topic_statistics(topic: topic)
+                rescue => exception
+                    topic_description = { name: topic, error: exception }
+                end
                 topics_list.push(topic_description)
             end
             response['topics'] = topics_list
@@ -66,9 +76,10 @@ class TopicController < ApplicationController
                     config[k] = params[:configs][k]
                 end
             end
-            KAFKA_CLUSTERS[params[:cluster_name]].create_topic(params[:topic_name], num_partitions: params[:partitions], replication_factor: params[:replication], config: config)
-            KAFKA_CLUSTERS[params[:cluster_name]].refresh_cluster
-            topic_statistics = KAFKA_CLUSTERS[params[:cluster_name]].topic_statistics(topic: params[:topic_name])
+            kafka = get_kafka_client(cluster_name: params[:cluster_name])
+            kafka.create_topic(params[:topic_name], num_partitions: params[:partitions], replication_factor: params[:replication], config: config)
+            kafka.refresh_cluster
+            topic_statistics = kafka.topic_statistics(topic: params[:topic_name])
             render_response(200, topic_statistics)
         end
     end
@@ -77,8 +88,9 @@ class TopicController < ApplicationController
         if !params_valid
             render_response(400, 'Cluster name not present')
         else
-            KAFKA_CLUSTERS[params[:cluster_name]].refresh_cluster
-            KAFKA_CLUSTERS[params[:cluster_name]].delete_topic(params[:name])
+            kafka = get_kafka_client(cluster_name: params[:cluster_name])
+            kafka.refresh_cluster
+            kafka.delete_topic(params[:name])
             render_response(200, 'Topic deleted')
         end
     end
@@ -94,7 +106,8 @@ class TopicController < ApplicationController
         if !params_valid
             render_response(400, 'Cluster name not present')
         else
-            configs = KAFKA_CLUSTERS[params[:cluster_name]].describe_topic(params[:topic], TOPIC_DETAILS.keys)
+            kafka = get_kafka_client(cluster_name: params[:cluster_name])
+            configs = kafka.describe_topic(params[:topic], TOPIC_DETAILS.keys)
             render_response(200, configs)
         end
     end

@@ -135,6 +135,15 @@
                     text-align: center;
                     flex-direction: column;
                 }
+
+                .error {
+                    flex-basis: 25%;
+                    padding: 20px 0px;
+                    display: flex;
+                    font-family: $font;
+                    text-align: center;
+                    flex-direction: column;
+                  }
             }
 
             .topics-description-wrapper {

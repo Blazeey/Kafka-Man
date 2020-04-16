@@ -38,6 +38,7 @@ import { MetricsComponent } from './metrics/metrics.component';
 import { SyntaxHighlightService } from './syntax-highlight.service';
 import { ConsumerMessagesComponent } from './consumer-messages/consumer-messages.component';
 import { ConsumerMessagesListComponent } from './consumer-messages-list/consumer-messages-list.component';
+import { ActionCableService } from 'angular2-actioncable';
 
 @NgModule({
   declarations: [
