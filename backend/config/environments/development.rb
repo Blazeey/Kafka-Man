@@ -62,5 +62,4 @@ Rails.application.configure do
   config.log_level = :debug
 
   config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/, /chrome-extension:\/\/*/]\
-  config.action_cable.worker_pool_size = 10
 end
