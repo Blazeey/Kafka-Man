@@ -5,27 +5,22 @@ class GroupController < ApplicationController
         else
             cluster = KAFKA_CLUSTERS[params[:cluster_name]]
             groups = cluster.groups
-            groups_details = {}
+            page_size = 50
+            search  = params[:search]
+            page = params[:page].to_i
+            groups_details = []
             topic_offsets = {}
+            groups = groups.select{ |group| group.start_with?(search) }
+            response['next'] = (groups.count > page * page_size)
+            start = (page - 1) * page_size
+            groups = groups[start, start + page_size - 1]
             groups.each do |g|
                 begin
-                    group = cluster.fetch_group_offsets(g)
-                    group.keys.each do |topic|
-                        if !topic_offsets[topic].present?
-                            topic_offsets[topic] = cluster.last_offsets_for(topic)[topic]
-                        end
-                        topic_offsets[topic].keys.each do |p|
-                            group[topic][p] = {
-                                offset: group[topic][p].offset,
-                                metadata: group[topic][p].metadata,
-                                topic_offset: topic_offsets[topic][p]
-                            }
-                        end
-                    end
+                    group = cluster.group_statistics(group_id: g)
                 rescue => exception
-                    puts exception
+                    group = { name: g, error: exception }
                 end
-                groups_details[g] = group
+                groups_details.push(group)
             end
             render_response(200, groups_details)
         end

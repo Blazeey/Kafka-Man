@@ -9,6 +9,7 @@ import { MatSidenavModule, MatListModule, MatTableModule, MatProgressSpinnerModu
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { ChartistModule } from 'ng-chartist';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,7 +39,6 @@ import { MetricsComponent } from './metrics/metrics.component';
 import { SyntaxHighlightService } from './syntax-highlight.service';
 import { ConsumerMessagesComponent } from './consumer-messages/consumer-messages.component';
 import { ConsumerMessagesListComponent } from './consumer-messages-list/consumer-messages-list.component';
-import { ActionCableService } from 'angular2-actioncable';
 
 @NgModule({
   declarations: [
@@ -90,7 +90,8 @@ import { ActionCableService } from 'angular2-actioncable';
     MatTooltipModule,
     ReactiveFormsModule,
     FormsModule,
-    CodemirrorModule
+    CodemirrorModule,
+    ChartistModule
   ],
   providers: [
     ClusterService,

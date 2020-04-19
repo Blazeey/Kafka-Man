@@ -3,7 +3,8 @@ export class Constants {
         { name: 'Clusters', route: '/clusters' },
         { name: 'Producer', route: '/producer' },
         { name: 'Consumer', route: '/consumer' },
-        { name: 'Topics', route: '/topic' }
+        { name: 'Topics', route: '/topic' },
+        { name: 'Groups', route: '/group' }
         // { name: 'Brokers', route: '/brokers' },
         // { name: 'Metrics', route: '/metrics' }
     ];
@@ -89,7 +90,7 @@ export class Constants {
     public static DELETE_CLUSTER = Constants.URL + '/kafka/:name';
     public static DELETE_TOPIC = Constants.URL + '/delete-topic/:name/:topic';
     public static LIST_GROUPS = Constants.URL + '/group/:name';
-    public static CONSUMER_LAG_MESSAGE = Constants.URL + '/group/:name/:group';
+    public static CONSUMER_LAG_MESSAGE = Constants.URL + '/consumer_lag/:name/:group';
     public static BROKER_DETAILS = Constants.URL + '/broker/:name';
 
     public static TOPIC_CONFIGS = [

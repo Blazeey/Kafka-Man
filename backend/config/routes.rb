@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     get '/topics/list_topic_configs', to: 'topic#list_topic_configs', as: 'list_topic_configs'
     get '/topics', to: 'topic#all_topics', as: 'list_all_topic'
     delete '/delete-topic/:cluster_name/:name', to: 'topic#delete_topic', as: 'delete_topic'
-    get '/group/:cluster_name/:name', to: 'group#consumer_lag', as: 'consumer_lag'
+    get '/consumer_lag/:cluster_name/:name', to: 'group#consumer_lag', as: 'consumer_lag'
     get 'groups/:cluster_name', to: 'group#list_groups', as: 'cluster_groups'
     get '/broker/:cluster_name/:broker_id', to: 'broker#details', as: 'broker_configs'
     get '/topic-configs/:cluster_name/:topic', to: 'topic#get_topic_configs', as: 'topic_configs'

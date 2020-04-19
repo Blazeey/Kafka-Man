@@ -2,9 +2,11 @@ class GroupJob < ApplicationJob
     
     def perform(params)
         puts 'Performing Job - GroupJob'
-        cluster = KAFKA_CLUSTERS[params[:cluster_name]]
+
+        k = KafkaCluster.find_by(name: params[:cluster_name])
+        cluster = Kafka.new(k.broker_uri.split(","), client_id: "KafkaMan", logger: Rails.logger)
         topic = params[:topic]
-        group = params[:group]
+        group = params[:name]
         consumer_lag_key = "consumer_lag_#{params[:cluster_name]}_#{group}"
         consumer_lag = cluster.consumer_lag(group_id: group, poll_duration: 10)
         RUNNING_CONSUMER_LAGS[consumer_lag_key] = consumer_lag

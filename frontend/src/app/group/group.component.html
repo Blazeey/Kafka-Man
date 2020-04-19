@@ -1,23 +1,124 @@
-<mat-accordion class="accordion">
-    <mat-expansion-panel *ngFor="let group of groups | keyvalue" class="panel">
-      <mat-expansion-panel-header>
-          <mat-panel-title class="title">
-              {{ group.key }}
-          </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="group-description-wrapper">
-        <app-chart [groupName]="group.key" [group]="group.value" [cluster]="clusterName"></app-chart>
-        <div *ngFor="let topic of group.value | keyvalue" class="topic">
-            <p class="topic-name"> <b>Topic : </b> {{ topic.key }} </p>
-            <div class="partition-wrapper">
-                <div *ngFor="let partition of topic.value | keyvalue" class="partition">
-                    <p class="partition-name"> <b>Partition : </b> {{ partition.key }} </p>
-                    <p class="partition-group-offset"> <b>Group Offset : </b> {{ partition.value.offset - 1}} </p>
-                    <p class="partition-topic-offset"> <b>Log End Offset : </b> {{ partition.value.topic_offset }} </p>
-                    <p class="partition-topic-offset"> <b>Consumer Lag : </b> {{ partition.value.topic_offset - partition.value.offset + 1}} </p>
-                </div>
+<div class="groups-container">
+    <div class="groups-header">
+        <div class="groups">Groups - {{ clusterName }}</div>
+    </div>
+    <div class="search-wrapper">
+        <form [formGroup]="groupForm" class="search-form">
+            <div class="form-wrapper">
+                <mat-form-field class="search" [floatLabel]="'always'">
+                    <input matInput autocomplete="off" formControlName="searchGroup">
+                </mat-form-field>
+                <button mat-icon-button (click)="search(0)"><i class="fas fa-search"></i></button>
             </div>
+            <div class="page-wrapper">
+                <button mat-icon-button (click)="search(-1)" [disabled]="pageNumber == 1"><i
+                        class="fas fa-chevron-left"></i></button>
+                <span><b> {{ pageNumber }} </b></span>
+                <button mat-icon-button (click)="search(1)" [disabled]="!nextPage"><i
+                        class="fas fa-chevron-right"></i></button>
+            </div>
+        </form>
+    </div>
+    <mat-progress-bar *ngIf="isGroupsLoading" class="progress-bar" mode="indeterminate" value="100"></mat-progress-bar>
+    <mat-accordion class="groups-accordion" multi="true" *ngIf="clusterName">
+        <mat-expansion-panel [disabled]="group.error" *ngFor="let group of groups" class="groups-panel">
+            <mat-expansion-panel-header collapsedHeight="*" expandedHeight="*">
+                <span class="mat-content">
+                    <mat-progress-bar *ngIf="!groupsProgressBar[i]" class="progress-bar" mode="determinate" value="100">
+                    </mat-progress-bar>
+                    <mat-progress-bar *ngIf="groupsProgressBar[i]" class="progress-bar" mode="indeterminate"
+                        value="100"></mat-progress-bar>
+                    <div class="content">
+                        <mat-panel-title class="group-title">
+                            {{ group.name }}
+                        </mat-panel-title>
+                        <mat-panel-description *ngIf="!group.error">
+                            <div class="group-header-descriptions">
+                                <div class="detail">
+                                    <span class="key">Topics</span>
+                                    <span class="value">{{group.topics_count | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Avg. lag/partition</span>
+                                    <span class="value">{{group.average | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Maximum lag</span>
+                                    <span class="value">{{group.max | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Minimum lag</span>
+                                    <span class="value">{{group.min | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">95th Percentile</span>
+                                    <span class="value">{{group.percentile | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Lag > 50</span>
+                                    <span class="value">{{group.gt_50 | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Lag > 100</span>
+                                    <span class="value">{{group.gt_100 | number}}</span>
+                                </div>
+                                <div class="detail">
+                                    <span class="key">Lag > 500</span>
+                                    <span class="value">{{group.gt_500 | number}}</span>
+                                </div>
+                            </div>
+                        </mat-panel-description>
+                        <mat-panel-description *ngIf="group.error">
+                            <div class="group-header-descriptions">
+                                <div class="error">
+                                    <div> {{ group.error }} </div>
+                                </div>
+                            </div>
+                        </mat-panel-description>
+                    </div>
+                </span>
+            </mat-expansion-panel-header>
+            <div class="groups-description-wrapper">
+                <div class="topic-details">
+                    <span class="topic-heading">Topics</span>
+                    <mat-list class="topic-list">
+                        <mat-list-item matLine *ngFor="let topic of group.details | keyvalue" class="topic">
+                            <div class="topic">
+                                <span class="topic-heading">{{ topic.key }}</span>
+                                <mat-list class="partition-list">
+                                    <mat-list-item matLine *ngFor="let partition of topic.value | keyvalue" class="partition">
+                                        <div class="detail">
+                                            <span class="key">Partition Id : </span>
+                                            <span class="value">{{ partition.key }}</span>
+                                        </div>
+                                        <div class="detail">
+                                            <span class="key">Consumer offset : </span>
+                                            <span class="value">{{ partition.value.offset }}</span>
+                                        </div>
+                                        <div class="detail">
+                                            <span class="key">Log end offset : </span>
+                                            <span class="value">{{ partition.value.log_end_offset }}</span>
+                                        </div>
+                                        <div class="detail">
+                                            <span class="key">Lag : </span>
+                                            <span class="value">{{ partition.value.lag }}</span>
+                                        </div>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
+                        </mat-list-item>                            
+                    </mat-list>
+                </div>
+                <app-chart [groupName]="group.name" [group]="group" [cluster]="clusterName"></app-chart>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div class="fab-container">
+        <button mat-fab (click)="toggleFab()"><mat-icon [@fabToggler]="{value: fabTogglerState}">repeat</mat-icon></button>
+        <div [@speedDialStagger]="fabButtons.length">
+            <button mat-button *ngFor="let button of fabButtons" class="fab-secondary" (click)="changeCluster(button)">
+            {{button}}
+            </button>
         </div>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+    </div>
+</div>

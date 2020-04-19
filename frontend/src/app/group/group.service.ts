@@ -16,9 +16,13 @@ export class GroupService {
         this.cable = ActionCable.createConsumer(Constants.CONSUMER_LAG_ACTION_CABLE);
     }
 
-    public listGroups(clusterName: string) {
+    public listGroups(clusterName: string, search: string, pageNumber: number) {
         let url = Constants.LIST_GROUPS.replace(':name', clusterName);
-        return this.http.get(url).pipe(map((response: {[key: string]: any}) => response));
+        let data: any = {
+            search: search,
+            page: pageNumber
+        }
+        return this.http.get(url, { params: data }).pipe(map((response: {[key: string]: any}) => response));
     }
 
     consume(clusterName: string, group: string, callback: (message: string) => any) {
@@ -41,7 +45,7 @@ export class GroupService {
         }, {
             connected: () => {
                 this.connected;
-                this.http.get(url, options).pipe(map((response: {[key: string]: any}) => response))
+                this.http.get(url).pipe(map((response: {[key: string]: any}) => response))
                 .pipe(catchError(error => of('ERROR', error)))
                 .subscribe(response => {
                     // console.log(response);

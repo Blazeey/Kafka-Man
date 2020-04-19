@@ -19,7 +19,7 @@ const routes: Routes = [
   // { path: '**', redirectTo: 'clusters', pathMatch: 'full' },
   // { path: 'cluster/:name', component: KafkaClusterComponent },
   // { path: 'topic/:name', component: TopicComponent },
-  // { path: 'group/:name', component: GroupComponent },
+  { path: 'group', component: GroupComponent },
   // { path: 'brokers/:name', component: BrokersComponent },
   // { path: 'metrics/:name', component: MetricsComponent }
 ];
