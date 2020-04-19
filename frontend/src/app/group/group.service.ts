@@ -25,6 +25,11 @@ export class GroupService {
         return this.http.get(url, { params: data }).pipe(map((response: {[key: string]: any}) => response));
     }
 
+    public listGroupNames(clusterName: string) {
+        let url = Constants.LIST_GROUP_NAMES.replace(':name', clusterName);
+        return this.http.get(url).pipe(map((response: {[key: string]: any}) => response));
+    }
+
     consume(clusterName: string, group: string, callback: (message: string) => any) {
 
         let url = Constants.CONSUMER_LAG_MESSAGE

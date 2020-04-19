@@ -25,7 +25,7 @@ export class ConsumerComponent implements OnInit {
   consumerForm: FormGroup;
   isConsuming: boolean;
   filteredTopics: Observable<string[]>;
-  consumerGroups: {} = {};
+  consumerGroups: string[] = [];
   filteredGroups: Observable<string[]>;
   currentMessageCount: number = 0;
   isClustersLoading = true;
@@ -85,7 +85,7 @@ export class ConsumerComponent implements OnInit {
     value += '';
     const filterValue = value.toLowerCase();
     if(this.form.startFilter.value !== 'consumer-group') return [];
-    return Object.keys(this.consumerGroups).filter(option => option.toLowerCase().includes(filterValue));
+    return this.consumerGroups.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   get offsets() {
@@ -203,7 +203,7 @@ export class ConsumerComponent implements OnInit {
     this.form.startFilterValueDate.updateValueAndValidity();
     this.form.startFilterValue.updateValueAndValidity();
     if(startFilter === 'consumer-group' && this.form.clusterName.value !== '') {
-      this.groupService.listGroups(this.form.clusterName.value)
+      this.groupService.listGroupNames(this.form.clusterName.value)
         .subscribe(response => {
           this.consumerGroups = response['message'];
         })

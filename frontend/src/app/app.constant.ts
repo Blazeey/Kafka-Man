@@ -90,6 +90,7 @@ export class Constants {
     public static DELETE_CLUSTER = Constants.URL + '/kafka/:name';
     public static DELETE_TOPIC = Constants.URL + '/delete-topic/:name/:topic';
     public static LIST_GROUPS = Constants.URL + '/group/:name';
+    public static LIST_GROUP_NAMES = Constants.URL + '/groups/:name';
     public static CONSUMER_LAG_MESSAGE = Constants.URL + '/consumer_lag/:name/:group';
     public static BROKER_DETAILS = Constants.URL + '/broker/:name';
 
