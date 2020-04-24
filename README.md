@@ -10,7 +10,7 @@ Well, got tired of using console to produce and consume messages.
 - backend/README.MD for Ruby on Rails installation
 
 ## Docker
-`docker run -itd -p 4200:80 -p 3259:3259 blazeey/kafka-man:latest`
+`docker run -itd -p 4200:80 -p 3259:3000 blazeey/kafka-man:latest`
 
 ## Local Cluster in Docker
 For using local cluster in docker, user IP of your machine. Ex. 192.168.0.103:9092
